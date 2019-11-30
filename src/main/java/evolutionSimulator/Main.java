@@ -21,7 +21,7 @@ public class Main extends Application {
 
 
         MainWindow mainWindow = new MainWindow(primaryStage, 50);
-        mainWindow.build(40,50);
+        mainWindow.build(10,10);
 
     }
 

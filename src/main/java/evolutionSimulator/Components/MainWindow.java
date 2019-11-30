@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -24,8 +25,8 @@ public class MainWindow {
     private static int gridSize;
     public static Cell[][] cells;
     public static StackPane[][] stackPanes;
-    GridPane mainGrid = new GridPane();
-    List<int[]> freeCells = new ArrayList<int[]>();
+    private GridPane mainGrid = new GridPane();
+    private List<int[]> freeCells = new ArrayList<int[]>();
 
     public MainWindow(Stage stage, int gridSize){
         this.stage = stage;
@@ -34,15 +35,15 @@ public class MainWindow {
         createCells();
         createStackPanes();
     }
-    public static void createCells(){
+    private static void createCells(){
         MainWindow.cells = new Cell[gridSize][gridSize];
     }
 
-    public static void createStackPanes(){
+    private static void createStackPanes(){
         MainWindow.stackPanes = new StackPane[gridSize][gridSize];
     }
 
-    public void createListOFFreeCells(){
+    private void createListOFFreeCells(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 freeCells.add(new int[]{i,j});
@@ -62,7 +63,7 @@ public class MainWindow {
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 StackPane sP = new StackPane();
-                sP.setStyle("-fx-background-color: brown");
+                sP.setStyle("-fx-background-color: brown; -fx-border-width: 1; -fx-border-color: black");
                 MainWindow.stackPanes[i][j] = sP;
                 mainGrid.add(sP,i,j);
             }
@@ -89,42 +90,46 @@ public class MainWindow {
             int[] coords = freeCells.get(index);
             freeCells.remove(index);
             Cell cell = new Cell();
-            cell.setWidth(8);
-            cell.setHeight(8);
+            cell.setWidth(25);
+            cell.setHeight(25);
             cell.setFill(customIcons.getIconGrass());
             //cell.setFill(Color.TRANSPARENT);
             MainWindow.stackPanes[coords[0]][coords[1]].getChildren().add(cell);
         }
         for (int i = 0; i < numOfLions; i++) {
             int index = rand.nextInt(freeCells.size());
-            int[] coords = freeCells.get(index);
+            int[] cords = freeCells.get(index);
             freeCells.remove(index);
             Cell cell = new Cell();
-            cell.setWidth(8);
-            cell.setHeight(8);
+            cell.setWidth(25);
+            cell.setHeight(25);
             cell.setFill(customIcons.getIconLion());
             //cell.setStyle("-fx-border-style: solid; -fx-border-width: 5; -fx-border-color: red; -fx-min-width: 20; -fx-min-height:20; -fx-max-width:20; -fx-max-height: 20;");
-            MainWindow.stackPanes[coords[0]][coords[1]].getChildren().add(cell);
+            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
 
+        for (int i = 0; i < freeCells.size(); i++) {
+            int index = rand.nextInt(freeCells.size());
+            int[] cords = freeCells.get(index);
+            freeCells.remove(index);
+            Cell cell = new Cell();
+            cell.setWidth(25);
+            cell.setHeight(25);
+            cell.setFill(Color.GREEN);
+            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
+        }
 
         //mainGrid.setStyle("-fx-background-color: black; -fx-vgap: 1; -fx-hgap: 1");
         mainGrid.setStyle("-fx-background-color: black");
-        //mainGrid.setStyle("-fx-background-color: red");
         ZoomableScrollPane mapRoot = new ZoomableScrollPane(mainGrid);
-        MenuBar menuBar = new MenuBar();
-        final Menu menu1 = new Menu("File");
-        final Menu menu2 = new Menu("Info");
-        menuBar.getMenus().add(menu1);
-        menuBar.getMenus().add(menu2);
-
         BorderPane root = new BorderPane();
+        MenuBar menuBar = new MyMenuBar(stage).build();
         root.setTop(menuBar);
         root.setCenter(mapRoot);
 
         Scene scene = new Scene(root,500,400);
-        //stage.setScene(new Scene(root,500,400));
         stage.setScene(scene);
+        stage.setTitle("Evolution Simulator");
         stage.setOnShowing(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
