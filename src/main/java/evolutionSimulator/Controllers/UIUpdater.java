@@ -1,6 +1,6 @@
 package evolutionSimulator.Controllers;
 
-import evolutionSimulator.Components.MainWindow;
+import evolutionSimulator.View.MainWindow;
 import evolutionSimulator.Models.Cell;
 import javafx.scene.paint.Color;
 

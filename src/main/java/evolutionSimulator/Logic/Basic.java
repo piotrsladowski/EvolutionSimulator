@@ -1,5 +1,4 @@
 package evolutionSimulator.Logic;
-import evolutionSimulator.Components.MainWindow;
 import evolutionSimulator.Models.SingleCell;
 import javafx.concurrent.Task;
 import javafx.scene.paint.Color;

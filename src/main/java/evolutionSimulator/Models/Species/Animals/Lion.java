@@ -1,4 +1,4 @@
-package evolutionSimulator.Species.Animals;
+package evolutionSimulator.Models.Species.Animals;
 
 import evolutionSimulator.Logic.Position;
 import java.util.Random;

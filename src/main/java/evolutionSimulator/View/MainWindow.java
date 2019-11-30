@@ -1,16 +1,13 @@
-package evolutionSimulator.Components;
+package evolutionSimulator.View;
 
 import evolutionSimulator.Logic.Map;
 import evolutionSimulator.Models.Cell;
-import evolutionSimulator.Models.CustomIcons;
 import evolutionSimulator.Models.SingleCell;
-import evolutionSimulator.Models.ZoomableScrollPane;
+import evolutionSimulator.Controllers.ZoomableScrollPane;
 import evolutionSimulator.Logic.Basic;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -76,16 +73,6 @@ public class MainWindow {
         Random rand = new Random();
         CustomIcons customIcons = new CustomIcons();
         addStackPanestoGrid();
-        int totalNum = numOfLions + numOfGrass;
-/*        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                Cell cell = new Cell();
-                cell.setWidth(8);
-                cell.setHeight(8);
-                cell.setFill(customIcons.getIconGrass());
-                MainWindow.stackPanes[i][j].getChildren().add(cell);
-            }
-        }*/
 
         int size = freeCells.size();
         for (int i = 0; i < numOfGrass; i++) {

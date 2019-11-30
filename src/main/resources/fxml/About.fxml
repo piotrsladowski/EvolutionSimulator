@@ -21,7 +21,7 @@
                   <Image url="@../images/Darwin.png" />
                </image>
             </ImageView>
-            <TextField text="Icons by Icons8">
+            <TextField editable="false" text="Icons by Icons8">
                <HBox.margin>
                   <Insets left="20.0" />
                </HBox.margin>

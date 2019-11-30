@@ -13,5 +13,14 @@
     <orderEntry type="library" name="javafx-sdk-11.01" level="project" />
     <orderEntry type="library" name="javafx-sdk-11.02" level="project" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/ini4j-0.5.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
