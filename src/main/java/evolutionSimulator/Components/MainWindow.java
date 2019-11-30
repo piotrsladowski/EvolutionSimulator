@@ -1,7 +1,9 @@
 package evolutionSimulator.Components;
 
+import evolutionSimulator.Logic.Map;
 import evolutionSimulator.Models.Cell;
 import evolutionSimulator.Models.CustomIcons;
+import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Models.ZoomableScrollPane;
 import evolutionSimulator.Logic.Basic;
 import javafx.event.EventHandler;
@@ -85,19 +87,21 @@ public class MainWindow {
             }
         }*/
 
+        int size = freeCells.size();
         for (int i = 0; i < numOfGrass; i++) {
-            int index = rand.nextInt(freeCells.size());
-            int[] coords = freeCells.get(index);
+            int index = rand.nextInt(size-i);
+            int[] cords = freeCells.get(index);
             freeCells.remove(index);
             Cell cell = new Cell();
             cell.setWidth(25);
             cell.setHeight(25);
             cell.setFill(customIcons.getIconGrass());
             //cell.setFill(Color.TRANSPARENT);
-            MainWindow.stackPanes[coords[0]][coords[1]].getChildren().add(cell);
+            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
+        size = freeCells.size();
         for (int i = 0; i < numOfLions; i++) {
-            int index = rand.nextInt(freeCells.size());
+            int index = rand.nextInt(size-i);
             int[] cords = freeCells.get(index);
             freeCells.remove(index);
             Cell cell = new Cell();
@@ -108,8 +112,9 @@ public class MainWindow {
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
 
-        for (int i = 0; i < freeCells.size(); i++) {
-            int index = rand.nextInt(freeCells.size());
+        size = freeCells.size();
+        for (int i = 0; i < size; i++) {
+            int index = rand.nextInt(size-i);
             int[] cords = freeCells.get(index);
             freeCells.remove(index);
             Cell cell = new Cell();
@@ -127,13 +132,16 @@ public class MainWindow {
         root.setTop(menuBar);
         root.setCenter(mapRoot);
 
+        Map map = new Map(gridSize);
+        SingleCell[][] maps = map.build();
+
         Scene scene = new Scene(root,500,400);
         stage.setScene(scene);
         stage.setTitle("Evolution Simulator");
         stage.setOnShowing(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                Basic fef = new Basic();
+                Basic fef = new Basic(maps);
             }
         });
         stage.show();

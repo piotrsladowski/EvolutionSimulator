@@ -1,12 +1,13 @@
 package evolutionSimulator.Logic;
 import evolutionSimulator.Components.MainWindow;
+import evolutionSimulator.Models.SingleCell;
 import javafx.concurrent.Task;
 import javafx.scene.paint.Color;
 
 import java.util.Random;
 
 public class Basic extends Thread {
-    public Basic() {
+    public Basic(SingleCell[][] inputMap) {
         //MainWindow.mainGrid
         //start();
         new Thread(task).start();
