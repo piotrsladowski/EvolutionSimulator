@@ -96,6 +96,7 @@ public class MainWindow {
             cell.setWidth(25);
             cell.setHeight(25);
             cell.setFill(customIcons.getIconGrass());
+            MainWindow.cells[cords[0]][cords[1]] = cell;
             //cell.setFill(Color.TRANSPARENT);
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
@@ -108,6 +109,7 @@ public class MainWindow {
             cell.setWidth(25);
             cell.setHeight(25);
             cell.setFill(customIcons.getIconLion());
+            MainWindow.cells[cords[0]][cords[1]] = cell;
             //cell.setStyle("-fx-border-style: solid; -fx-border-width: 5; -fx-border-color: red; -fx-min-width: 20; -fx-min-height:20; -fx-max-width:20; -fx-max-height: 20;");
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
@@ -121,6 +123,7 @@ public class MainWindow {
             cell.setWidth(25);
             cell.setHeight(25);
             cell.setFill(Color.GREEN);
+            MainWindow.cells[cords[0]][cords[1]] = cell;
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
 
