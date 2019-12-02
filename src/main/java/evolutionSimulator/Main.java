@@ -1,5 +1,6 @@
 package evolutionSimulator;
 
+import evolutionSimulator.ConfigFile.ConfigFile;
 import evolutionSimulator.Controllers.LoadSettings;
 import evolutionSimulator.View.MainWindow;
 import javafx.application.Application;
@@ -9,9 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoadSettings loadSettings = new LoadSettings();
-        loadSettings.loadGeneral();
-        MainWindow mainWindow = new MainWindow(primaryStage, 50);
+        ConfigFile configFile = new ConfigFile(getClass().getResource("/config.test").getFile());
+        configFile.load();
+        int gridSize = Integer.parseInt(configFile.getGeneralProperties().get("gridSize"));
+        MainWindow mainWindow = new MainWindow(primaryStage, gridSize);
         mainWindow.build(10, 10);
     }
 

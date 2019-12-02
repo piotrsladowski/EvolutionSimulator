@@ -1,6 +1,6 @@
 package evolutionSimulator.View;
 
-import evolutionSimulator.Logic.Map;
+import evolutionSimulator.Logic.MyMap;
 import evolutionSimulator.Models.Cell;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
@@ -49,14 +49,6 @@ public class MainWindow {
             }
         }
     }
-
-    // Podsiadeł napisał, ale raczej już nie będzie użyte
-    public static Cell[][] getCells() {
-        if (MainWindow.cells == null)
-            MainWindow.cells = new Cell[gridSize][gridSize];
-        return MainWindow.cells;
-    }
-
 
     private void addStackPanestoGrid(){
         for (int i = 0; i < gridSize; i++) {
@@ -122,8 +114,8 @@ public class MainWindow {
         root.setTop(menuBar);
         root.setCenter(mapRoot);
 
-        Map map = new Map(gridSize);
-        SingleCell[][] maps = map.build();
+        MyMap myMap = new MyMap(gridSize);
+        SingleCell[][] maps = myMap.build();
 
         Scene scene = new Scene(root,500,400);
         stage.setScene(scene);

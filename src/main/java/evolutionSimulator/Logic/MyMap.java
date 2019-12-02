@@ -3,11 +3,11 @@ import evolutionSimulator.View.MainWindow;
 import evolutionSimulator.Models.Cell;
 import evolutionSimulator.Models.SingleCell;
 
-public class Map {
+public class MyMap {
     private int gridSize;
     private SingleCell[][] map;
 
-    public Map(int gridSize) {
+    public MyMap(int gridSize) {
         this.gridSize = gridSize;
         map = new SingleCell[gridSize][gridSize];
     }
