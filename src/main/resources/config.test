@@ -1,0 +1,35 @@
+[General]
+gridSize = 20
+ver=1.0
+ver2=2.0
+[endGeneral]
+
+[AnimalsDeclaration]
+<Zwierze1>
+name = Rudy Koczkodan
+speed = 20
+food_type = meat
+</Zwierze1>
+<zw2>
+name = twoj
+speed = 40
+wiek = 32
+
+</zw2>
+
+<Zwierze3>
+name = Burgundowe kokosy
+speed = 20
+food_type = vege
+optional = nic
+</Zwierze3>
+
+[endAnimalsDeclaration]
+api
+[PlantsDeclaration]
+
+[endPlantsDeclaration]
+
+#Tosie nie pokaze
+To tak
+#to znowu nie
