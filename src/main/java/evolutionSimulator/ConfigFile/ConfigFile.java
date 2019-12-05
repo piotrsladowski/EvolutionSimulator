@@ -1,5 +1,9 @@
 package evolutionSimulator.ConfigFile;
 
+import evolutionSimulator.Models.Species.Animals.Herbivore;
+import evolutionSimulator.Models.Species.Animals.MeatEater;
+import evolutionSimulator.Models.Species.Animals.Omnivore;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,7 +84,8 @@ public class ConfigFile {
             }
         }
 
-        System.out.println(animalsList.get("Zwierze3").get("name"));
+        //System.out.println(animalsList.get("Zwierze3").get("name"));
+        createNewAnimalsObjects();
 
         int plantsStartIndex = usefulLines.indexOf("[PlantsDeclaration]") + 1;
         int plantsEndIndex = usefulLines.indexOf("[endPlantsDeclaration]");
@@ -131,4 +136,29 @@ public class ConfigFile {
         return result;
     }
 
+    private void createNewAnimalsObjects(){
+        for (Map.Entry<String, Map<String, String>> entry: animalsList.entrySet()) {
+            String key = entry.getKey();
+            Map<String, String> value = entry.getValue();
+
+            String foodType = value.get("food_type");
+            String name = value.get("name");
+            int speed = Integer.parseInt(value.get("speed"));
+
+            if(foodType.equals("herbivore")){
+                Herbivore h = new Herbivore();
+            }
+            if(foodType.equals("meat_eater")){
+                MeatEater m = new MeatEater();
+            }
+            if(foodType.equals("omnivore")){
+                Omnivore o = new Omnivore();
+            }
+
+/*            for (Map.Entry<String, String> childEntry : value.entrySet()){
+                String childKey = childEntry.getKey();
+                String childValue = childEntry.getValue();
+            }*/
+        }
+    }
 }

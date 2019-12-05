@@ -8,8 +8,13 @@ ver2=2.0
 <Zwierze1>
 name = Rudy Koczkodan
 speed = 20
-food_type = meat
+food_type = meat_eater
 </Zwierze1>
+<Zwierze2>
+name = Tytanowy Janusz
+speed = 20
+food_type = herbivore
+</Zwierze2>
 <zw2>
 name = twoj
 speed = 40
