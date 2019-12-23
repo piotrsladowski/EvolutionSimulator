@@ -60,6 +60,7 @@ public class MyMenuBar {
                 e.printStackTrace();
             }
             try {
+                assert u != null;
                 java.awt.Desktop.getDesktop().browse(u);
             } catch (IOException e) {
                 e.printStackTrace();

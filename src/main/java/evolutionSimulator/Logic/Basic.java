@@ -13,12 +13,11 @@ public class Basic extends Thread {
     }
     Task task = new Task<Void>() {
         @Override
-        protected Void call() throws Exception {
+        protected Void call() {
             return null;
         }
 
         @Override public void run() {
-            System.out.println("duidsa");
             Random rand = new Random();
             Color[] colors = {Color.WHITE, Color.YELLOW, Color.GRAY, Color.PURPLE};
             //MainWindow.cells[1][1].setFill(Color.PINK);

@@ -1,51 +1,49 @@
 [General]
 gridSize = 100
-percentageOfPlants = 0
-percentageOfAnimals = 100
+percentageOfPlants = 50
+percentageOfAnimals = 50
 ver=1.0
 ver2=2.0
 [endGeneral]
 
 [AnimalsDeclaration]
 <Zwierze1>
-name = stefan
-speed = 20
-food_type = meat_eater
-percentageOfTotal = 23
+    name = stefan
+    speed = 20
+    food_type = meat_eater
+    percentageOfTotal = 23
 </Zwierze1>
 
-
-
 <Zwierze2>
-name = janek
-speed = 20
-food_type = herbivore
-percentageOfTotal = 23
+    name = janek
+    speed = 20
+    food_type = herbivore
+    percentageOfTotal = 23
 </Zwierze2>
 
-
-
 <zw2>
-name = twoj
-speed = 40
-wiek = 32
-percentageOfTotal = 23
+    name = twoj
+    speed = 40
+    wiek = 32
+    percentageOfTotal = 23
 </zw2>
 
 <Zwierze3>
-name = maciek
-speed = 20
-food_type = omnivore
-optional = nic
-percentageOfTotal = 13
+    name = maciek
+    speed = 20
+    food_type = omnivore
+    optional = nic
+    percentageOfTotal = 13
 </Zwierze3>
 
 [endAnimalsDeclaration]
-api
+
 [PlantsDeclaration]
-
+<plant1>
+    name = potato
+    health_points = 30
+    consume_time = 2
+    eatable = true
+    percentageOfTotal = 60
+</plant1>
 [endPlantsDeclaration]
-
-#Tosie nie pokaze
-To tak
-#to znowu nie

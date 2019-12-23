@@ -31,8 +31,7 @@ public class Cow {
             intMove = intMove -1;
         }
     intMove = 2;
-    };
-
+    }
 
 
 }

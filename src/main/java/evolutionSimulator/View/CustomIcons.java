@@ -15,7 +15,6 @@ public class CustomIcons {
     }
 
     public ImagePattern generateImagePattern(String name){
-        ImagePattern imagePattern = new ImagePattern(new Image("icons/" + name + "/" + name + "40.png"));
-        return imagePattern;
+        return new ImagePattern(new Image("icons/" + name + "/" + name + "40.png"));
     }
 }

@@ -13,13 +13,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 public class MainWindow {
     private Stage stage;
@@ -63,7 +63,7 @@ public class MainWindow {
         }
     }
 
-    public void build(int numOfLions, int numOfGrass, ArrayList<Animal> correctlyReadAnimals) throws InterruptedException {
+    public void build(int numOfGrass, List<String[]> readAnimals, List<String[]> readPlants) {
         Random rand = new Random();
         CustomIcons customIcons = new CustomIcons();
         addStackPanesToGrid();
@@ -81,38 +81,40 @@ public class MainWindow {
             //cell.setFill(Color.TRANSPARENT);
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
-        size = freeCells.size();
-/*        for (int i = 0; i < numOfLions; i++) {
-            int index = rand.nextInt(size-i);
-            int[] cords = freeCells.get(index);
-            freeCells.remove(index);
-            Cell cell = new Cell();
-            cell.setWidth(25);
-            cell.setHeight(25);
-            cell.setFill(customIcons.getIconLion());
-            MainWindow.cells[cords[0]][cords[1]] = cell;
-            //cell.setStyle("-fx-border-style: solid; -fx-border-width: 5; -fx-border-color: red; -fx-min-width: 20; -fx-min-height:20; -fx-max-width:20; -fx-max-height: 20;");
-            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
-        }*/
 
-        for (int i = 0; i < correctlyReadAnimals.size(); i++) {
-            //TODO poor performance
-            int index = rand.nextInt(size-i);
-            int[] cords = freeCells.get(index);
-            freeCells.remove(index);
-            Cell cell = new Cell();
-            cell.setWidth(25);
-            cell.setHeight(25);
-            //Animal animal = correctlyReadAnimals.get(i);
-            //String name = animal.getName();
-            //String fullClassName = animal.getClass().getName();
-            //String className = fullClassName.substring(fullClassName.lastIndexOf('.') + 1);
-            //cell.setFill(customIcons.generateImagePattern(name));//TODO do not duplicate imagePatterns
-            cell.setFill(Color.GRAY);
-            MainWindow.cells[cords[0]][cords[1]] = cell;
-            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
+        for (String[] animal: readAnimals) {
+            size = freeCells.size();
+            ImagePattern icon = customIcons.generateImagePattern(animal[2]);
+            for (int i = 0; i < Integer.parseInt(animal[1]); i++) {
+                int index = rand.nextInt(size-i);
+                int[] cords = freeCells.get(index);
+                freeCells.remove(index);
+                Cell cell = new Cell();
+                cell.setWidth(25);
+                cell.setHeight(25);
+                cell.setFill(icon);
+                MainWindow.cells[cords[0]][cords[1]] = cell;
+                MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
+            }
         }
-        //ArrayList<Animal> cd =correctlyReadAnimals;
+
+        for (String[] plant: readPlants) {
+            size = freeCells.size();
+            ImagePattern icon = customIcons.generateImagePattern(plant[2]);
+            for (int i = 0; i < Integer.parseInt(plant[1]); i++) {
+                int index = rand.nextInt(size-i);
+                int[] cords = freeCells.get(index);
+                freeCells.remove(index);
+                Cell cell = new Cell();
+                cell.setWidth(25);
+                cell.setHeight(25);
+                cell.setFill(icon);
+                MainWindow.cells[cords[0]][cords[1]] = cell;
+                MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
+            }
+        }
+
+        //generate cells not occupied by any species
         size = freeCells.size();
         for (int i = 0; i < size; i++) {
             int index = rand.nextInt(size-i);
