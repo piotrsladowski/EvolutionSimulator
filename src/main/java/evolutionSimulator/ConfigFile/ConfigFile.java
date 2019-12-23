@@ -1,5 +1,6 @@
 package evolutionSimulator.ConfigFile;
 
+import evolutionSimulator.Models.Species.Animals.Animal;
 import evolutionSimulator.Models.Species.Animals.Herbivore;
 import evolutionSimulator.Models.Species.Animals.MeatEater;
 import evolutionSimulator.Models.Species.Animals.Omnivore;
@@ -28,6 +29,13 @@ public class ConfigFile {
 
     public Map<String, Map<String, String>> getAnimalsList() {
         return animalsList;
+    }
+    private ArrayList<Integer> animalIDs = new ArrayList<>();
+
+    private ArrayList<Animal> correctlyReadAnimals = new ArrayList<>();
+
+    public ArrayList<Animal> getCorrectlyReadAnimals() {
+        return correctlyReadAnimals;
     }
 
     public void load() throws IOException {
@@ -137,28 +145,69 @@ public class ConfigFile {
     }
 
     private void createNewAnimalsObjects(){
-        for (Map.Entry<String, Map<String, String>> entry: animalsList.entrySet()) {
-            String key = entry.getKey();
-            Map<String, String> value = entry.getValue();
+        double allAnimals = Math.pow(Double.parseDouble(generalProperties.get("gridSize")),2) * Double.parseDouble(generalProperties.get("percentageOfAnimals")) * 0.01;
+        int actualPercentage = 100;
+            for (Map.Entry<String, Map<String, String>> entry : animalsList.entrySet()) {
+                String key = entry.getKey();
+                Map<String, String> value = entry.getValue();
+                String foodType = value.get("food_type");
+                String name = value.get("name");
+                int speed = Integer.parseInt(value.get("speed"));
+                int percentage = 0;
+                try {
+                    percentage = Integer.parseInt(value.get("percentageOfTotal"));
+                } catch (NumberFormatException e) {
+                    continue;
+                    //percentage will be 0
+                    //e.printStackTrace();
+                }
 
-            String foodType = value.get("food_type");
-            String name = value.get("name");
-            int speed = Integer.parseInt(value.get("speed"));
+                // assign ID to every created animal. Only animals with the same ID can copulate
+                int ID;
+                try {
+                    ID = animalIDs.get(animalIDs.size() - 1) + 1;
+                    animalIDs.add(ID);
+                }catch (IndexOutOfBoundsException e){
+                    ID = 1;
+                    animalIDs.add(ID);
+                }
 
-            if(foodType.equals("herbivore")){
-                Herbivore h = new Herbivore();
-            }
-            if(foodType.equals("meat_eater")){
-                MeatEater m = new MeatEater();
-            }
-            if(foodType.equals("omnivore")){
-                Omnivore o = new Omnivore();
-            }
+                if (percentage > 100) {
+                    percentage = 100;
+                } else if (percentage < 0) {
+                    percentage = 0;
+                }
+                if (actualPercentage - percentage < 0) {
+                    percentage = actualPercentage;
+                    actualPercentage = 0;
+                }
+                else{
+                    actualPercentage -= percentage;
+                }
+                int number = (int) (allAnimals * percentage * 0.01);
+                for (int i = 0; i < number; i++) {
+                    if (foodType.equals("herbivore")) {
+                        Herbivore h = new Herbivore(name, speed, ID);
+                        correctlyReadAnimals.add(h);
+                    }
+                    else if (foodType.equals("meat_eater")) {
+                        MeatEater m = new MeatEater(name, speed, ID);
+                        correctlyReadAnimals.add(m);
+                    }
+                    else if (foodType.equals("omnivore")) {
+                        Omnivore o = new Omnivore(name, speed, ID);
+                        correctlyReadAnimals.add(o);
+                    }
+                }
+                if(actualPercentage == 0){
+                    break;
+                }
+
 
 /*            for (Map.Entry<String, String> childEntry : value.entrySet()){
                 String childKey = childEntry.getKey();
                 String childValue = childEntry.getValue();
             }*/
-        }
+            }
     }
 }

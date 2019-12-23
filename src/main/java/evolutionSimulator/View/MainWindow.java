@@ -5,6 +5,7 @@ import evolutionSimulator.Models.Cell;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
 import evolutionSimulator.Logic.Basic;
+import evolutionSimulator.Models.Species.Animals.Animal;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -18,6 +19,7 @@ import javafx.stage.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class MainWindow {
     private Stage stage;
@@ -50,7 +52,7 @@ public class MainWindow {
         }
     }
 
-    private void addStackPanestoGrid(){
+    private void addStackPanesToGrid(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 StackPane sP = new StackPane();
@@ -61,10 +63,10 @@ public class MainWindow {
         }
     }
 
-    public void build(int numOfLions, int numOfGrass) throws InterruptedException {
+    public void build(int numOfLions, int numOfGrass, ArrayList<Animal> correctlyReadAnimals) throws InterruptedException {
         Random rand = new Random();
         CustomIcons customIcons = new CustomIcons();
-        addStackPanestoGrid();
+        addStackPanesToGrid();
 
         int size = freeCells.size();
         for (int i = 0; i < numOfGrass; i++) {
@@ -80,7 +82,7 @@ public class MainWindow {
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
         size = freeCells.size();
-        for (int i = 0; i < numOfLions; i++) {
+/*        for (int i = 0; i < numOfLions; i++) {
             int index = rand.nextInt(size-i);
             int[] cords = freeCells.get(index);
             freeCells.remove(index);
@@ -91,8 +93,26 @@ public class MainWindow {
             MainWindow.cells[cords[0]][cords[1]] = cell;
             //cell.setStyle("-fx-border-style: solid; -fx-border-width: 5; -fx-border-color: red; -fx-min-width: 20; -fx-min-height:20; -fx-max-width:20; -fx-max-height: 20;");
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
-        }
+        }*/
 
+        for (int i = 0; i < correctlyReadAnimals.size(); i++) {
+            //TODO poor performance
+            int index = rand.nextInt(size-i);
+            int[] cords = freeCells.get(index);
+            freeCells.remove(index);
+            Cell cell = new Cell();
+            cell.setWidth(25);
+            cell.setHeight(25);
+            //Animal animal = correctlyReadAnimals.get(i);
+            //String name = animal.getName();
+            //String fullClassName = animal.getClass().getName();
+            //String className = fullClassName.substring(fullClassName.lastIndexOf('.') + 1);
+            //cell.setFill(customIcons.generateImagePattern(name));//TODO do not duplicate imagePatterns
+            cell.setFill(Color.GRAY);
+            MainWindow.cells[cords[0]][cords[1]] = cell;
+            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
+        }
+        //ArrayList<Animal> cd =correctlyReadAnimals;
         size = freeCells.size();
         for (int i = 0; i < size; i++) {
             int index = rand.nextInt(size-i);

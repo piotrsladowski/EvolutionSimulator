@@ -1,32 +1,43 @@
 [General]
-gridSize = 20
+gridSize = 100
+percentageOfPlants = 0
+percentageOfAnimals = 100
 ver=1.0
 ver2=2.0
 [endGeneral]
 
 [AnimalsDeclaration]
 <Zwierze1>
-name = Rudy Koczkodan
+name = stefan
 speed = 20
 food_type = meat_eater
+percentageOfTotal = 23
 </Zwierze1>
+
+
+
 <Zwierze2>
-name = Tytanowy Janusz
+name = janek
 speed = 20
 food_type = herbivore
+percentageOfTotal = 23
 </Zwierze2>
+
+
+
 <zw2>
 name = twoj
 speed = 40
 wiek = 32
-
+percentageOfTotal = 23
 </zw2>
 
 <Zwierze3>
-name = Burgundowe kokosy
+name = maciek
 speed = 20
-food_type = vege
+food_type = omnivore
 optional = nic
+percentageOfTotal = 13
 </Zwierze3>
 
 [endAnimalsDeclaration]
