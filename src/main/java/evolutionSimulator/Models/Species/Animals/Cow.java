@@ -2,14 +2,22 @@ package evolutionSimulator.Models.Species.Animals;
 
 import java.util.Random;
 import evolutionSimulator.Logic.Position;
+import evolutionSimulator.Logic.Basic;
+
+import static java.lang.StrictMath.round;
 
 public class Cow {
     private String name = "Cow";
     private char symbol = 'C';
     Random generator = new Random();
-    private Position position = new Position(generator.nextInt(10),generator.nextInt(10));
+    private Position position;
     //Dodaj do mapy obiekt
     int intMove = 2;
+    int vitality = 100;
+
+    public Cow(Position position) {
+        this.position = position;
+    }
 
     public void Go(){
         while (intMove > 0){
@@ -28,12 +36,26 @@ public class Cow {
                 case 7: this.position.setY(this.position.getY()+1);
                         this.position.setY(this.position.getY()-1);
             }
-            intMove = intMove -1;
+            this.intMove = this.intMove -1;
+            this.vitality = this.vitality -1;
+
         }
     intMove = 2;
     };
 
-
+    public void EatGrass(int grass_vitality){
+        this.vitality = this.vitality + grass_vitality;
+    }
+    public void EatLion(){
+        this.vitality = 0;
+    }
+    public void Breeding (){
+        this.vitality = this.vitality - (int)round(this.vitality * 0.25);
+        int x = this.position.getX()+1;
+        int y = this.position.getY()+1;
+        Position position = new Position(x,y);
+        Cow cow = new Cow(position);
+    }
 
 }
 
