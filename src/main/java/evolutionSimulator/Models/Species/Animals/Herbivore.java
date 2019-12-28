@@ -4,7 +4,7 @@ public class Herbivore implements Animal {
     private int ID;
     private int speed;
     private String name;
-    public Herbivore(String name, int speed, int ID){
+    public Herbivore(int ID, String name, int speed) {
         this.ID = ID;
         this.speed = speed;
         this.name = name;

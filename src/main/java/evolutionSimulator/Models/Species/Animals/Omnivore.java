@@ -4,7 +4,7 @@ public class Omnivore implements Animal {
     private int ID;
     private int speed;
     private String name;
-    public Omnivore(String name, int speed, int ID) {
+    public Omnivore(int ID, String name, int speed) {
         this.ID = ID;
         this.speed = speed;
         this.name = name;

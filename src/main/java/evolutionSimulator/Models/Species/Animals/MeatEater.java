@@ -4,7 +4,7 @@ public class MeatEater implements Animal {
     private int ID;
     private int speed;
     private String name;
-    public MeatEater(String name, int speed, int ID) {
+    public MeatEater(int ID, String name, int speed) {
         this.ID = ID;
         this.speed = speed;
         this.name = name;
