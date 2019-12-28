@@ -1,7 +1,7 @@
 package evolutionSimulator.Models.Species.Animals;
 
 import java.util.Random;
-import evolutionSimulator.Logic.Position;
+import evolutionSimulator.Models.Logic.Position;
 
 public class Cow {
     private String name = "Cow";

@@ -1,11 +1,10 @@
 package evolutionSimulator.View;
 
-import evolutionSimulator.Logic.MyMap;
+import evolutionSimulator.Models.Logic.MyMap;
 import evolutionSimulator.Models.Cell;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
-import evolutionSimulator.Logic.Basic;
-import evolutionSimulator.Models.Species.Animals.Animal;
+import evolutionSimulator.Models.Logic.Basic;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -69,7 +68,7 @@ public class MainWindow {
         addStackPanesToGrid();
 
         int size = freeCells.size();
-        for (int i = 0; i < numOfGrass; i++) {
+/*        for (int i = 0; i < numOfGrass; i++) {
             int index = rand.nextInt(size-i);
             int[] cords = freeCells.get(index);
             freeCells.remove(index);
@@ -80,8 +79,9 @@ public class MainWindow {
             MainWindow.cells[cords[0]][cords[1]] = cell;
             //cell.setFill(Color.TRANSPARENT);
             MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
-        }
+        }*/
 
+        // Insert randomly animals on the map
         for (String[] animal: readAnimals) {
             size = freeCells.size();
             ImagePattern icon = customIcons.generateImagePattern(animal[2]);
@@ -93,11 +93,13 @@ public class MainWindow {
                 cell.setWidth(25);
                 cell.setHeight(25);
                 cell.setFill(icon);
+                cell.animalIDArray[0] = Integer.parseInt(animal[0]);
                 MainWindow.cells[cords[0]][cords[1]] = cell;
                 MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
             }
         }
 
+        // Insert randomly plants on the map
         for (String[] plant: readPlants) {
             size = freeCells.size();
             ImagePattern icon = customIcons.generateImagePattern(plant[2]);
@@ -109,6 +111,8 @@ public class MainWindow {
                 cell.setWidth(25);
                 cell.setHeight(25);
                 cell.setFill(icon);
+                //cell.setOpacity(0.4);
+                cell.plantID = Integer.parseInt(plant[0]);
                 MainWindow.cells[cords[0]][cords[1]] = cell;
                 MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
             }

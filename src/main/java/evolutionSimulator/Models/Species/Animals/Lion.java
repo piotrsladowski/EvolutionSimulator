@@ -1,6 +1,6 @@
 package evolutionSimulator.Models.Species.Animals;
 
-import evolutionSimulator.Logic.Position;
+import evolutionSimulator.Models.Logic.Position;
 import java.util.Random;
 
 public class Lion {
