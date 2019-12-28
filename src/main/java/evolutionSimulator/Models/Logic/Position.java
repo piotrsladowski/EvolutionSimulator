@@ -1,4 +1,4 @@
-package evolutionSimulator.Logic;
+package evolutionSimulator.Models.Logic;
 
 public class Position {
     private int x;

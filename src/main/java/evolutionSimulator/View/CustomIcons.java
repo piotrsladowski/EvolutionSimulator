@@ -10,8 +10,11 @@ public class CustomIcons {
     public ImagePattern getIconLion() {
         return iconLion;
     }
-
     public ImagePattern getIconGrass() {
         return iconGrass;
+    }
+
+    public ImagePattern generateImagePattern(String name){
+        return new ImagePattern(new Image("icons/" + name + "/" + name + "40.png"));
     }
 }

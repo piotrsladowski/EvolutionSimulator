@@ -1,35 +1,58 @@
 [General]
-gridSize = 20
+gridSize = 50
+percentageOfPlants = 50
+percentageOfAnimals = 50
 ver=1.0
 ver2=2.0
 [endGeneral]
 
 [AnimalsDeclaration]
-<Zwierze1>
-name = Rudy Koczkodan
-speed = 20
-food_type = meat
-</Zwierze1>
-<zw2>
-name = twoj
-speed = 40
-wiek = 32
+<Lion>
+    name = lion
+    speed = 20
+    food_type = meat_eater
+    percentageOfTotal = 23
+</Lion>
 
-</zw2>
+<Cow>
+    name = cow
+    speed = 20
+    food_type = herbivore
+    percentageOfTotal = 23
+</Cow>
 
-<Zwierze3>
-name = Burgundowe kokosy
-speed = 20
-food_type = vege
-optional = nic
-</Zwierze3>
+<Pig>
+    name = pig
+    speed = 40
+    wiek = 32
+    food_type = omnivore
+    percentageOfTotal = 23
+</Pig>
+
+<Bear>
+    name = bear
+    speed = 20
+    food_type = omnivore
+    optional = nic
+    percentageOfTotal = 13
+</Bear>
 
 [endAnimalsDeclaration]
-api
+
 [PlantsDeclaration]
+<Grass>
+    name = grass
+    health_points = 30
+    consume_time = 2
+    eatable = true
+    percentageOfTotal = 60
+</Grass>
 
+<Potato>
+    name = potato
+    health_points = 30
+    consume_time = 2
+    eatable = true
+    percentageOfTotal = 20
+</Potato>
 [endPlantsDeclaration]
-
-#Tosie nie pokaze
-To tak
-#to znowu nie

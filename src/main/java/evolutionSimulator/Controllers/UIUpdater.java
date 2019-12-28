@@ -5,7 +5,7 @@ import evolutionSimulator.Models.Cell;
 import javafx.scene.paint.Color;
 
 public class UIUpdater {
-    private Cell cells[][] = MainWindow.cells;
+    private Cell[][] cells = MainWindow.cells;
     public void update(Cell[][] updatedCells){
         int size = updatedCells.length;
         for(int i=0; i<size; i++){

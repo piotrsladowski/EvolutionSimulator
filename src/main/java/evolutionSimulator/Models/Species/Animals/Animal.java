@@ -1,6 +1,9 @@
 package evolutionSimulator.Models.Species.Animals;
 
 public interface Animal {
-    public void move();
-    public void copulate();
+    void move();
+    void copulate();
+    int getID();
+    String getName();
+    int getSpeed();
 }
