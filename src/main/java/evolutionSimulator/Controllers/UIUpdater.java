@@ -5,7 +5,7 @@ import evolutionSimulator.Models.CellGUI;
 import javafx.scene.paint.Color;
 
 public class UIUpdater {
-    private CellGUI[][] cellGUIS = MainWindow.cellGUIS;
+    private CellGUI[][] cellGUIS = MainWindow.cellGUIArray;
     public void update(CellGUI[][] updatedCellGUIS){
         int size = updatedCellGUIS.length;
         for(int i=0; i<size; i++){

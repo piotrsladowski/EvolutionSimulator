@@ -23,7 +23,7 @@ public class Main extends Application {
         SingleCell[][] map = myMap.generate(readAnimals, readPlants);
         MainWindow mainWindow = new MainWindow(primaryStage, gridSize, map);
         mainWindow.generateIcons(readAnimals, readPlants);
-        mainWindow.build(readAnimals, readPlants);
+        mainWindow.build();
 
     }
 

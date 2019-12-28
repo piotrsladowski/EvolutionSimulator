@@ -49,6 +49,12 @@ public class SingleCell {
         return true;
     }
 
-    //public int[] animalIDArray;
-    //public int plantID;
+    public String getName(){
+        if(isPlant())
+            return this.plant.getName();
+        else if(isAnimal())
+            return this.animals.get(0).getName();
+        else
+            return "";
+    }
 }

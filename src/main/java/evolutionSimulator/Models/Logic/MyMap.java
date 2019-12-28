@@ -6,7 +6,6 @@ import evolutionSimulator.Models.Species.Plant;
 import evolutionSimulator.View.MainWindow;
 import evolutionSimulator.Models.CellGUI;
 import evolutionSimulator.Models.SingleCell;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +14,15 @@ import java.util.Random;
 public class MyMap {
     private int gridSize;
     private SingleCell[][] map;
-    private List<int[]> freeCells = new ArrayList<int[]>();
+    private List<int[]> freeCells = new ArrayList<>();
 
     public MyMap(int gridSize) {
         this.gridSize = gridSize;
         map = new SingleCell[gridSize][gridSize];
     }
 
-    public SingleCell[][] build(){
-        CellGUI[][] cellGUIS = MainWindow.cellGUIS;
+/*    public SingleCell[][] build(){
+        CellGUI[][] cellGUIS = MainWindow.cellGUIArray;
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 SingleCell sc = new SingleCell();
@@ -31,7 +30,7 @@ public class MyMap {
             }
         }
         return map;
-    }
+    }*/
 
     private void createListOFFreeCells(){
         for (int i = 0; i < gridSize; i++) {
