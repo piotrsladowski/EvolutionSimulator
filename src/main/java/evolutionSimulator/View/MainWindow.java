@@ -5,6 +5,7 @@ import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
 import evolutionSimulator.Models.Species.Animals.Animal;
 import evolutionSimulator.Models.Species.Plant;
+import evolutionSimulator.Models.Species.Species;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -72,33 +73,25 @@ public class MainWindow {
         addStackPanesToGrid();
 
         for (int i = 0; i < gridSize; i++) {
-                for (int j = 0; j < gridSize; j++) {
-                    if(map[i][j].isPlant()){
-                        Plant plant = map[i][j].getPlant();
-                        CellGUI cellGUI = new CellGUI();
-                        cellGUI.setWidth(25);
-                        cellGUI.setHeight(25);
-                        cellGUI.setFill(iconsList.get(plant.getName()));
-                        cellGUIArray[i][j] = cellGUI;
-                        stackPanes[i][j].getChildren().add(cellGUI);
-                    }
-                    else if(map[i][j].isAnimal()) {
-                        Animal animal = map[i][j].getAnimal();
-                        CellGUI cellGUI = new CellGUI();
-                        cellGUI.setWidth(25);
-                        cellGUI.setHeight(25);
-                        cellGUI.setFill(iconsList.get(animal.getName()));
-                        cellGUIArray[i][j] = cellGUI;
-                        stackPanes[i][j].getChildren().add(cellGUI);
-                    }
-                    else {
-                        CellGUI cellGUI = new CellGUI();
-                        cellGUI.setWidth(25);
-                        cellGUI.setHeight(25);
-                        cellGUI.setFill(Color.GREEN);
-                        cellGUIArray[i][j] = cellGUI;
-                        stackPanes[i][j].getChildren().add(cellGUI);
-                    }
+            for (int j = 0; j < gridSize; j++) {
+                if(map[i][j].hasAnySpecies()){
+                    Species species = map[i][j].getSpecies();
+                    CellGUI cellGUI = new CellGUI();
+                    cellGUI.setWidth(25);
+                    cellGUI.setHeight(25);
+                    cellGUI.setFill(iconsList.get(species.getName()));
+                    cellGUI.setOpacity(species.getVitality() * 0.01);
+                    cellGUIArray[i][j] = cellGUI;
+                    stackPanes[i][j].getChildren().add(cellGUI);
+                }
+                else {
+                    CellGUI cellGUI = new CellGUI();
+                    cellGUI.setWidth(25);
+                    cellGUI.setHeight(25);
+                    cellGUI.setFill(Color.GREEN);
+                    cellGUIArray[i][j] = cellGUI;
+                    stackPanes[i][j].getChildren().add(cellGUI);
+                }
             }
         }
 
@@ -125,7 +118,9 @@ public class MainWindow {
     public void refresh(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                cellGUIArray[i][j].setFill(iconsList.get(map[i][j].getName()));
+                Species item = map[i][j].getSpecies();
+                cellGUIArray[i][j].setFill(iconsList.get(item.getName()));
+                cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
             }
         }
     }

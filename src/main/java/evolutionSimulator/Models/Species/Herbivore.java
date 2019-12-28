@@ -1,18 +1,21 @@
-package evolutionSimulator.Models.Species.Animals;
+package evolutionSimulator.Models.Species;
 
-public class Omnivore implements Animal {
+import evolutionSimulator.Models.Species.Animals.Animal;
+
+public class Herbivore implements Species {
     private int ID;
     private int speed;
     private String name;
-    public Omnivore(int ID, String name, int speed) {
+    private int vitality;
+    public Herbivore(int ID, String name, int speed, int vitality) {
         this.ID = ID;
         this.speed = speed;
         this.name = name;
+        this.vitality = vitality;
     }
-
     @Override
     public void move() {
-        
+
     }
 
     @Override
@@ -33,5 +36,10 @@ public class Omnivore implements Animal {
     @Override
     public int getSpeed() {
         return speed;
+    }
+
+    @Override
+    public int getVitality() {
+        return vitality;
     }
 }

@@ -1,10 +1,8 @@
 package evolutionSimulator.Models.Logic;
-import evolutionSimulator.Models.Species.Animals.Herbivore;
-import evolutionSimulator.Models.Species.Animals.MeatEater;
-import evolutionSimulator.Models.Species.Animals.Omnivore;
+import evolutionSimulator.Models.Species.Herbivore;
+import evolutionSimulator.Models.Species.MeatEater;
+import evolutionSimulator.Models.Species.Omnivore;
 import evolutionSimulator.Models.Species.Plant;
-import evolutionSimulator.View.MainWindow;
-import evolutionSimulator.Models.CellGUI;
 import evolutionSimulator.Models.SingleCell;
 
 import java.util.ArrayList;
@@ -20,17 +18,6 @@ public class MyMap {
         this.gridSize = gridSize;
         map = new SingleCell[gridSize][gridSize];
     }
-
-/*    public SingleCell[][] build(){
-        CellGUI[][] cellGUIS = MainWindow.cellGUIArray;
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                SingleCell sc = new SingleCell();
-                map[i][j] = sc;
-            }
-        }
-        return map;
-    }*/
 
     private void createListOFFreeCells(){
         for (int i = 0; i < gridSize; i++) {
@@ -55,22 +42,23 @@ public class MyMap {
                 int[] cords = freeCells.get(index);
                 freeCells.remove(index);
                 String foodType = animal[3];
+                int vitality = Integer.parseInt(animal[5]);
                 if ("meat_eater".equals(foodType)) {
-                    MeatEater m = new MeatEater(ID, name, ID);
+                    MeatEater m = new MeatEater(ID, name, ID, vitality);
                     SingleCell sc = new SingleCell();
-                    sc.addAnimalStartup(m);
+                    sc.addSpeciesStartup(m);
                     map[cords[0]][cords[1]] = sc;
                 }
                 else if ("herbivore".equals(foodType)) {
-                    Herbivore h = new Herbivore(ID, name, ID);
+                    Herbivore h = new Herbivore(ID, name, ID, vitality);
                     SingleCell sc = new SingleCell();
-                    sc.addAnimalStartup(h);
+                    sc.addSpeciesStartup(h);
                     map[cords[0]][cords[1]] = sc;
                 }
                 else if ("omnivore".equals(foodType)) {
-                    Omnivore o = new Omnivore(ID, name, ID);
+                    Omnivore o = new Omnivore(ID, name, ID, vitality);
                     SingleCell sc = new SingleCell();
-                    sc.addAnimalStartup(o);
+                    sc.addSpeciesStartup(o);
                     map[cords[0]][cords[1]] = sc;
                 }
             }
@@ -88,7 +76,8 @@ public class MyMap {
                 SingleCell sc = new SingleCell();
                 Plant p = new Plant(ID, name);
                 //TODO set values
-                sc.setPlant(p);
+                sc.addSpeciesStartup(p);
+                //sc.setPlant(p);
                 map[cords[0]][cords[1]] = sc;
 
 /*                MainWindow.cellGUIS[cords[0]][cords[1]] = cellGUI;

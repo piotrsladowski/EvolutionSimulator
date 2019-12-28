@@ -2,41 +2,45 @@ package evolutionSimulator.Models;
 
 import evolutionSimulator.Models.Species.Animals.Animal;
 import evolutionSimulator.Models.Species.Plant;
+import evolutionSimulator.Models.Species.Species;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SingleCell {
-    private List<Animal> animals = new ArrayList<>();
+    private List<Species> animals = new ArrayList<>();
     private Plant plant;
+    private List<Species> speciesList = new ArrayList<>();
 
     public void setPlant(Plant plant) {
         this.plant = plant;
     }
 
-    public void setAnimals(List<Animal> animals) {
+    public void setAnimals(List<Species> animals) {
         this.animals = animals;
     }
 
-    public void addAnimalStartup(Animal animal){
+    public void addAnimalStartup(Species animal){
         this.animals.add(animal);
     }
 
-    public Plant getPlant(){
-/*        if(this.plant == null)
-            return null;*/
-        return plant;
+    public void addSpeciesStartup(Species species){
+        this.speciesList.add(species);
     }
 
-    public Animal getAnimal(){
-/*        if(this.animals == null)
-            return null;
-        if(this.animals.size() == 0)
-            return null;*/
-        return animals.get(0);
+    public Species getSpecies(){
+        return speciesList.get(0);
     }
 
-    public boolean isPlant(){
+    public boolean hasAnySpecies(){
+        if(speciesList.size() == 0)
+            return false;
+        else
+            return true;
+    }
+
+
+/*    public boolean isPlant(){
         if(this.plant == null)
             return false;
         return true;
@@ -56,5 +60,5 @@ public class SingleCell {
             return this.animals.get(0).getName();
         else
             return "";
-    }
+    }*/
 }

@@ -4,7 +4,7 @@ import evolutionSimulator.View.MainWindow;
 import evolutionSimulator.Models.CellGUI;
 import javafx.scene.paint.Color;
 
-public class UIUpdater {
+/*public class UIUpdater {
     private CellGUI[][] cellGUIS = MainWindow.cellGUIArray;
     public void update(CellGUI[][] updatedCellGUIS){
         int size = updatedCellGUIS.length;
@@ -20,4 +20,4 @@ public class UIUpdater {
             }
         }
     }
-}
+}*/
