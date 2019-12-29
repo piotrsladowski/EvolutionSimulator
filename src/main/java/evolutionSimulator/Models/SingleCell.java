@@ -1,6 +1,29 @@
 package evolutionSimulator.Models;
 
+import evolutionSimulator.Models.Species.Species;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class SingleCell {
-    public int[] animalIDArray;
-    public int plantID;
+    private List<Species> speciesList = new ArrayList<>();
+
+    public void addSpeciesStartup(Species species){
+        this.speciesList.add(species);
+    }
+
+    public Species getSpecies(){
+        return speciesList.get(0);
+    }
+
+    public List<Species> getAllSpecies(){
+        return speciesList;
+    }
+
+    public boolean hasAnySpecies(){
+        if(speciesList.size() == 0)
+            return false;
+        else
+            return true;
+    }
 }

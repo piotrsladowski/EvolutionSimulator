@@ -16,12 +16,36 @@ import java.util.logging.Logger;
 public class MyMenuBar {
     private Stage parentStage;
     private Stage aboutStage = null;
+    private Stage controlStage = null;
 
     public MyMenuBar(Stage parentStage) {
         this.parentStage = parentStage;
     }
 
     public javafx.scene.control.MenuBar build(){
+        MenuItem control = new MenuItem("Open control window");
+        control.setOnAction(event -> {
+            try {
+                if(controlStage == null){
+                    controlStage = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/fxml/Control.fxml"));
+                    Scene controlScene = new Scene(fxmlLoader.load(), 400, 400);
+                    controlStage.setTitle("Control");
+                    controlStage.setScene(controlScene);
+                    controlStage.initOwner(parentStage);
+                    controlStage.show();
+                }
+                if(!controlStage.isShowing()){
+                    controlStage.show();
+                }
+            }
+            catch (IOException e) {
+                Logger logger = Logger.getLogger(getClass().getName());
+                logger.log(Level.SEVERE, "Failed to create new Window.", e);
+            }
+        });
+
         MenuItem about = new MenuItem("About");
 /*        EventHandler<ActionEvent> aboutClick = new EventHandler<ActionEvent>() {
             @Override
@@ -68,6 +92,7 @@ public class MyMenuBar {
         });
         final Menu menu1 = new Menu("File");
         final Menu menu2 = new Menu("Info");
+        menu1.getItems().addAll(control);
         menu2.getItems().addAll(about, githubPage);
         javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
         menuBar.getMenus().add(menu1);

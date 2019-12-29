@@ -1,10 +1,11 @@
 package evolutionSimulator.View;
 
-import evolutionSimulator.Models.Logic.MyMap;
-import evolutionSimulator.Models.Cell;
+import evolutionSimulator.Models.CellGUI;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
-import evolutionSimulator.Models.Logic.Basic;
+import evolutionSimulator.Models.Species.Animals.Animal;
+import evolutionSimulator.Models.Species.Plant;
+import evolutionSimulator.Models.Species.Species;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -16,39 +17,32 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MainWindow {
     private Stage stage;
     private static int gridSize;
-    public static Cell[][] cells;
-    public static StackPane[][] stackPanes;
+    public static CellGUI[][] cellGUIArray;
+    private StackPane[][] stackPanes;
     private GridPane mainGrid = new GridPane();
-    private List<int[]> freeCells = new ArrayList<int[]>();
 
-    public MainWindow(Stage stage, int gridSize){
+    private SingleCell[][] map;
+
+    private Map<String, ImagePattern> iconsList = new HashMap<>();
+
+    public MainWindow(Stage stage, int gridSize, SingleCell[][] map){
         this.stage = stage;
         MainWindow.gridSize = gridSize;
-        createListOFFreeCells();
-        createCells();
+        this.map = map;
+        createCellsGUI();
         createStackPanes();
     }
-    private static void createCells(){
-        MainWindow.cells = new Cell[gridSize][gridSize];
+    private static void createCellsGUI(){
+        MainWindow.cellGUIArray = new CellGUI[gridSize][gridSize];
     }
 
-    private static void createStackPanes(){
-        MainWindow.stackPanes = new StackPane[gridSize][gridSize];
-    }
-
-    private void createListOFFreeCells(){
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                freeCells.add(new int[]{i,j});
-            }
-        }
+    private void createStackPanes(){
+        stackPanes = new StackPane[gridSize][gridSize];
     }
 
     private void addStackPanesToGrid(){
@@ -56,80 +50,50 @@ public class MainWindow {
             for (int j = 0; j < gridSize; j++) {
                 StackPane sP = new StackPane();
                 sP.setStyle("-fx-background-color: brown; -fx-border-width: 1; -fx-border-color: black");
-                MainWindow.stackPanes[i][j] = sP;
+                stackPanes[i][j] = sP;
                 mainGrid.add(sP,i,j);
             }
         }
     }
 
-    public void build(int numOfGrass, List<String[]> readAnimals, List<String[]> readPlants) {
-        Random rand = new Random();
-        CustomIcons customIcons = new CustomIcons();
+    public Map<String, ImagePattern> generateIcons(List<String[]> readAnimals, List<String[]> readPlants){
+        for (String[] animal: readAnimals) {
+            CustomIcons customIcons = new CustomIcons();
+            ImagePattern icon = customIcons.generateImagePattern(animal[2]);
+            iconsList.put(animal[2], icon);
+        }
+        for (String[] plant: readPlants) {
+            CustomIcons customIcons = new CustomIcons();
+            ImagePattern icon = customIcons.generateImagePattern(plant[2]);
+            iconsList.put(plant[2], icon);
+        }
+        return iconsList;
+    }
+
+    public void build() {
         addStackPanesToGrid();
 
-        int size = freeCells.size();
-/*        for (int i = 0; i < numOfGrass; i++) {
-            int index = rand.nextInt(size-i);
-            int[] cords = freeCells.get(index);
-            freeCells.remove(index);
-            Cell cell = new Cell();
-            cell.setWidth(25);
-            cell.setHeight(25);
-            cell.setFill(customIcons.getIconGrass());
-            MainWindow.cells[cords[0]][cords[1]] = cell;
-            //cell.setFill(Color.TRANSPARENT);
-            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
-        }*/
-
-        // Insert randomly animals on the map
-        for (String[] animal: readAnimals) {
-            size = freeCells.size();
-            ImagePattern icon = customIcons.generateImagePattern(animal[2]);
-            for (int i = 0; i < Integer.parseInt(animal[1]); i++) {
-                int index = rand.nextInt(size-i);
-                int[] cords = freeCells.get(index);
-                freeCells.remove(index);
-                Cell cell = new Cell();
-                cell.setWidth(25);
-                cell.setHeight(25);
-                cell.setFill(icon);
-                cell.animalIDArray[0] = Integer.parseInt(animal[0]);
-                MainWindow.cells[cords[0]][cords[1]] = cell;
-                MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                if(map[i][j].hasAnySpecies()){
+                    Species species = map[i][j].getSpecies();
+                    CellGUI cellGUI = new CellGUI();
+                    cellGUI.setWidth(25);
+                    cellGUI.setHeight(25);
+                    cellGUI.setFill(iconsList.get(species.getName()));
+                    cellGUI.setOpacity(species.getVitality() * 0.01);
+                    cellGUIArray[i][j] = cellGUI;
+                    stackPanes[i][j].getChildren().add(cellGUI);
+                }
+                else {
+                    CellGUI cellGUI = new CellGUI();
+                    cellGUI.setWidth(25);
+                    cellGUI.setHeight(25);
+                    cellGUI.setFill(Color.GREEN);
+                    cellGUIArray[i][j] = cellGUI;
+                    stackPanes[i][j].getChildren().add(cellGUI);
+                }
             }
-        }
-
-        // Insert randomly plants on the map
-        for (String[] plant: readPlants) {
-            size = freeCells.size();
-            ImagePattern icon = customIcons.generateImagePattern(plant[2]);
-            for (int i = 0; i < Integer.parseInt(plant[1]); i++) {
-                int index = rand.nextInt(size-i);
-                int[] cords = freeCells.get(index);
-                freeCells.remove(index);
-                Cell cell = new Cell();
-                cell.setWidth(25);
-                cell.setHeight(25);
-                cell.setFill(icon);
-                //cell.setOpacity(0.4);
-                cell.plantID = Integer.parseInt(plant[0]);
-                MainWindow.cells[cords[0]][cords[1]] = cell;
-                MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
-            }
-        }
-
-        //generate cells not occupied by any species
-        size = freeCells.size();
-        for (int i = 0; i < size; i++) {
-            int index = rand.nextInt(size-i);
-            int[] cords = freeCells.get(index);
-            freeCells.remove(index);
-            Cell cell = new Cell();
-            cell.setWidth(25);
-            cell.setHeight(25);
-            cell.setFill(Color.GREEN);
-            MainWindow.cells[cords[0]][cords[1]] = cell;
-            MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cell);
         }
 
         //mainGrid.setStyle("-fx-background-color: black; -fx-vgap: 1; -fx-hgap: 1");
@@ -140,18 +104,25 @@ public class MainWindow {
         root.setTop(menuBar);
         root.setCenter(mapRoot);
 
-        MyMap myMap = new MyMap(gridSize);
-        SingleCell[][] maps = myMap.build();
-
         Scene scene = new Scene(root,500,400);
         stage.setScene(scene);
         stage.setTitle("Evolution Simulator");
         stage.setOnShowing(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                Basic fef = new Basic(maps);
+                //Basic fef = new Basic(maps);
             }
         });
         stage.show();
+    }
+
+    public void refresh(){
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                Species item = map[i][j].getSpecies();
+                MainWindow.cellGUIArray[i][j].setFill(iconsList.get(item.getName()));
+                MainWindow.cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
+            }
+        }
     }
 }

@@ -180,6 +180,7 @@ public class ConfigFile {
             newAnimal[2] = value.get("name");
             newAnimal[3] = value.get("food_type");
             newAnimal[4] = value.get("speed");
+            newAnimal[5] = value.get("vitality");
             int percentage;
             try {
                 percentage = Integer.parseInt(value.get("percentageOfTotal"));
