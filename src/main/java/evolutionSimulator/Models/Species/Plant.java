@@ -37,4 +37,9 @@ public class Plant implements Species{
     public int getVitality() {
         return 100;
     }
+
+    @Override
+    public void updateVitality() {
+
+    }
 }

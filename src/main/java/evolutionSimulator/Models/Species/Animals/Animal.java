@@ -4,6 +4,6 @@ public interface Animal {
     void move();
     void copulate();
     int getID();
-    String getName();
+    //String getName();
     int getSpeed();
 }

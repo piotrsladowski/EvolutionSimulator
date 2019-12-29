@@ -7,4 +7,5 @@ public interface Species {
     String getName();
     int getSpeed();
     int getVitality();
+    void updateVitality();
 }

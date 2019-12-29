@@ -79,9 +79,6 @@ public class MyMap {
                 sc.addSpeciesStartup(p);
                 //sc.setPlant(p);
                 map[cords[0]][cords[1]] = sc;
-
-/*                MainWindow.cellGUIS[cords[0]][cords[1]] = cellGUI;
-                MainWindow.stackPanes[cords[0]][cords[1]].getChildren().add(cellGUI);*/
             }
         }
 

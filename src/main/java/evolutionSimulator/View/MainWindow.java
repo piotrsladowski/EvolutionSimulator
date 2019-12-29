@@ -56,7 +56,7 @@ public class MainWindow {
         }
     }
 
-    public void generateIcons(List<String[]> readAnimals, List<String[]> readPlants){
+    public Map<String, ImagePattern> generateIcons(List<String[]> readAnimals, List<String[]> readPlants){
         for (String[] animal: readAnimals) {
             CustomIcons customIcons = new CustomIcons();
             ImagePattern icon = customIcons.generateImagePattern(animal[2]);
@@ -67,6 +67,7 @@ public class MainWindow {
             ImagePattern icon = customIcons.generateImagePattern(plant[2]);
             iconsList.put(plant[2], icon);
         }
+        return iconsList;
     }
 
     public void build() {
@@ -119,8 +120,8 @@ public class MainWindow {
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 Species item = map[i][j].getSpecies();
-                cellGUIArray[i][j].setFill(iconsList.get(item.getName()));
-                cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
+                MainWindow.cellGUIArray[i][j].setFill(iconsList.get(item.getName()));
+                MainWindow.cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
             }
         }
     }

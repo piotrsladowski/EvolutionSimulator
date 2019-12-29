@@ -42,4 +42,9 @@ public class Herbivore implements Species {
     public int getVitality() {
         return vitality;
     }
+
+    @Override
+    public void updateVitality() {
+        this.vitality -= 10;
+    }
 }
