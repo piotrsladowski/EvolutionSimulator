@@ -1,11 +1,14 @@
 package evolutionSimulator.Models.Species;
 
+import evolutionSimulator.Models.SingleCell;
+
 public interface Species {
-    void move();
+    void move(SingleCell[][] map, int x, int y, int size);
     void copulate();
     int getID();
     String getName();
     int getSpeed();
     int getVitality();
-    void updateVitality();
+    void setVitality(int vitality);
+    int updateVitality(SingleCell[][] map, int x, int y);
 }

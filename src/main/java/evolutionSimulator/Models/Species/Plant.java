@@ -1,16 +1,20 @@
 package evolutionSimulator.Models.Species;
 
+import evolutionSimulator.Models.SingleCell;
+
+import javax.swing.*;
+
 public class Plant implements Species{
     private int ID;
     private String name;
-
+    private int vitality = 100;
     public Plant(int ID, String name) {
         this.ID = ID;
         this.name = name;
     }
 
     @Override
-    public void move() {
+    public void move(SingleCell[][] map, int x, int y, int size) {
 
     }
 
@@ -35,11 +39,21 @@ public class Plant implements Species{
 
     @Override
     public int getVitality() {
-        return 100;
+        return  this.vitality;
     }
 
     @Override
-    public void updateVitality() {
+    public void setVitality(int vitality){
+        this.vitality = vitality;
+    };
+
+    @Override
+    public int updateVitality(SingleCell[][] map, int x, int y) {
+        if (this.vitality <= 0) {
+            map[x][y].delete(this);
+            return 0;
+        }
+        else {return 1;}
 
     }
 }
