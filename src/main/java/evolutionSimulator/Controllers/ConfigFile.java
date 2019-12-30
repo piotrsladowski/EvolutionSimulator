@@ -86,7 +86,7 @@ public class ConfigFile {
                     Map<String, String> singleSpecies = readSingleSpecies(animalClassName, sublist);
                     if(checkAnimalMandatoryProperties(animalClassName, singleSpecies)){
                         animalsList.put(animalClassName, singleSpecies);
-                        System.out.println(animalClassName + " added animal");
+                        //System.out.println(animalClassName + " added animal");
                     }
                 }
             }
@@ -109,7 +109,7 @@ public class ConfigFile {
                     Map<String, String> singleSpecies = readSingleSpecies(plantClassName, sublist);// parse all properties of single species
                     if(checkPlantMandatoryProperties(plantClassName, singleSpecies)){// don't add if not all mandatory properties were specified
                         plantsList.put(plantClassName, singleSpecies);
-                        System.out.println(plantClassName + " added");
+                        //System.out.println(plantClassName + " added");
                     }
                 }
             }
