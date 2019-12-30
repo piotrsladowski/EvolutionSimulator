@@ -16,14 +16,27 @@ public class MapUpdater extends Thread{
     private GUIUpdater guiUpdater;
     private int day;
     private Properties properties;
+    private Object pauseLock;
+    private volatile boolean paused = false;
 
-    public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties) {
+    public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties, Object pauseLock) {
         this.map = map;
         this.gridSize = map.length;
         this.guiUpdater = guiUpdater;
         this.properties = properties;
+        this.pauseLock = pauseLock;
         this.day = Integer.parseInt(properties.getProperty("day"));
-        new Thread(task).start();
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+        /**
+         * //TODO
+         * Thats easiest, but the downside is that you wont get a graceful shutdown
+         * (ie the threads will stop, you wont get a chance to perform resource
+         * management etc, which may or may not be a problem for you).
+         * https://stackoverflow.com/questions/14897194/stop-threads-before-close-my-javafx-program
+         **/
+        //new Thread(task).start();
     }
 
     Task task = new Task<Void>() {
@@ -34,36 +47,45 @@ public class MapUpdater extends Thread{
 
         @Override public void run() {
             while (true) {
+                if(properties.getProperty("paused").equals("true")) {
+                    try {
+                        synchronized (pauseLock) {
+                            pauseLock.wait();
+                        }
+                    } catch (InterruptedException ex) {
+
+                    }
+                }
                 for (int i = 0; i < gridSize; i++) {
                     for (int j = 0; j < gridSize; j++) {
                         List<Species> speciesList = map[i][j].getAllSpecies();
                         int n = 0;
                         while (speciesList.size() != 0) {
-                            System.out.println(speciesList.size() + " n " + n);
+                            //System.out.println(speciesList.size() + " n " + n);
                             if (speciesList.size() == n) {
-                                System.out.println("Break M");
+                                //System.out.println("Break M");
                                 break;
                             } else {
-                                System.out.println("Move M");
+                                //System.out.println("Move M");
                                 speciesList.get(n).move(map, i, j, gridSize);
                                 n++;
                             }
                         }
                     }
                 }
-                System.out.println("Ruszone");
+                //System.out.println("Ruszone");
                 for (int i = 0; i < gridSize; i++) {
                     for (int j = 0; j < gridSize; j++) {
                         List<Species> speciesList = map[i][j].getAllSpecies();
                         int n = 0;
                         while (speciesList.size() != 0) {
-                            System.out.println(speciesList.size() + " n " + n);
+                            //System.out.println(speciesList.size() + " n " + n);
                             if (speciesList.size() == n) {
-                                System.out.println("Break M");
+                                //System.out.println("Break M");
                                 break;
                             } else {
                                 n = n + speciesList.get(n).updateVitality(map, i, j);
-                                System.out.println("Move M");
+                                //System.out.println("Move M");
                             }
                         }
                     }
@@ -76,6 +98,7 @@ public class MapUpdater extends Thread{
                 }
                 properties.setProperty("day", String.valueOf(day));
                 guiUpdater.update(map);
+                System.out.println(day);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
