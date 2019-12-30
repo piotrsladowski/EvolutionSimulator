@@ -54,11 +54,10 @@ public class Herbivore implements Species {
             if (x + deltaX >= size || x + deltaX < 0) {
                 deltaX = -deltaX;
             }
-            ;
             if (y + deltaY >= size || y + deltaY < 0) {
                 deltaY = -deltaY;
             }
-            ;
+
             Herbivore copy_this = new Herbivore(this.ID, this.name, this.speed, this.vitality - 10, false);
             map[x + deltaX][y + deltaY].getAllSpecies().add(copy_this);
             this.vitality = 0;
