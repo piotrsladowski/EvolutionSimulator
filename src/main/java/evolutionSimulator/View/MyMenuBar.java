@@ -1,15 +1,20 @@
 package evolutionSimulator.View;
 
+import evolutionSimulator.Controllers.ControlWindow;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,9 +22,11 @@ public class MyMenuBar {
     private Stage parentStage;
     private Stage aboutStage = null;
     private Stage controlStage = null;
+    private Properties properties;
 
-    public MyMenuBar(Stage parentStage) {
+    public MyMenuBar(Stage parentStage, Properties properties) {
         this.parentStage = parentStage;
+        this.properties = properties;
     }
 
     public javafx.scene.control.MenuBar build(){
@@ -30,15 +37,27 @@ public class MyMenuBar {
                     controlStage = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/fxml/Control.fxml"));
-                    Scene controlScene = new Scene(fxmlLoader.load(), 400, 400);
+                    Parent root = (Parent)fxmlLoader.load();
+                    fxmlLoader.<ControlWindow>getController().setProperties(properties);
+                    //fxmlLoader.setController(new ControlWindow(properties));
+                    Scene controlScene = new Scene(root);
                     controlStage.setTitle("Control");
                     controlStage.setScene(controlScene);
                     controlStage.initOwner(parentStage);
+                    controlStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent event) {
+                            controlStage = null;
+                        }
+                    });
                     controlStage.show();
                 }
-                if(!controlStage.isShowing()){
-                    controlStage.show();
+                else {
+                    System.out.println("Control stage is not null");
                 }
+/*                if(!controlStage.isShowing()){
+                    controlStage.show();
+                }*/
             }
             catch (IOException e) {
                 Logger logger = Logger.getLogger(getClass().getName());

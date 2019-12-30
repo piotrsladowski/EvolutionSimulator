@@ -21,11 +21,11 @@
                   <Image url="@../images/Darwin.png" />
                </image>
             </ImageView>
-            <TextField editable="false" text="Icons by Icons8">
+            <Label alignment="TOP_RIGHT" text="Icons by Icons8" textAlignment="CENTER">
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="40.0" />
                </HBox.margin>
-            </TextField>
+            </Label>
          </children>
          <VBox.margin>
             <Insets left="20.0" right="20.0" top="10.0" />
