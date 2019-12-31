@@ -48,7 +48,7 @@ public class MapUpdater extends Thread{
                         }
                     }
                 }
-                clearded();
+                cleardead();
                 for (int i = 0; i < gridSize; i++) {
                     for (int j = 0; j < gridSize; j++) {
                         List<Species> speciesList = map[i][j].getAllSpecies();
@@ -63,7 +63,7 @@ public class MapUpdater extends Thread{
                         }
                     }
                 }
-                clearded();
+                cleardead();
                 day++;
                 if(day == 365){
                     day = 0;
@@ -82,7 +82,7 @@ public class MapUpdater extends Thread{
         }
     };
 
-    public void clearded(){
+    public void cleardead(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 List<Species> speciesList = map[i][j].getAllSpecies();

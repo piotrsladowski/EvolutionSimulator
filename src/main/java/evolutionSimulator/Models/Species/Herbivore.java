@@ -71,7 +71,8 @@ public class Herbivore implements Species {
     }
 
     @Override
-    public void copulate(SingleCell[][] map, int x, int y, int size) {
+    public void copulate(List<Species> speciesList) {
+
     }
 
 
@@ -84,7 +85,6 @@ public class Herbivore implements Species {
                         species.setVitality(0);
                         species.setAte(true);
                         break;
-
                 }
             }
         }

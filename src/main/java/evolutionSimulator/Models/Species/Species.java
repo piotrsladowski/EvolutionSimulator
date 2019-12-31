@@ -8,7 +8,7 @@ public interface Species {
     boolean isAte();
     void setAte(boolean ate);
     void move(SingleCell[][] map, int x, int y, int size);
-    void copulate(SingleCell[][] map, int x, int y, int size);
+    void copulate(List<Species> speciesList);
     void eat(List<Species> speciesList);
     int getID();
     String getName();

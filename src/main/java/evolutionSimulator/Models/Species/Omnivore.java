@@ -26,9 +26,8 @@ public class Omnivore implements Species {
         this.been = been;
         this.eatLis.add("potato");
         this.eatLis.add("grass");
-        this.eatLis.add("bear");
         this.eatLis.add("cow");
-        this.eatLis.add("pig");
+        this.eatLis.add("lion");
     }
 
     @Override
@@ -78,7 +77,7 @@ public class Omnivore implements Species {
     }
 
     @Override
-    public void copulate(SingleCell[][] map, int x, int y, int size) {
+    public void copulate(List<Species> speciesList) {
 
     }
 
