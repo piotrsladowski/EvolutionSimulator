@@ -2,9 +2,14 @@ package evolutionSimulator.Models.Species;
 
 import evolutionSimulator.Models.SingleCell;
 
+import java.util.List;
+
 public interface Species {
+    boolean isAte();
+    void setAte(boolean ate);
     void move(SingleCell[][] map, int x, int y, int size);
-    void copulate();
+    void copulate(SingleCell[][] map, int x, int y, int size);
+    void eat(List<Species> speciesList);
     int getID();
     String getName();
     int getSpeed();

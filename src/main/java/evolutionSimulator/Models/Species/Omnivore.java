@@ -3,16 +3,20 @@ package evolutionSimulator.Models.Species;
 import evolutionSimulator.Models.SingleCell;
 
 import javax.management.MBeanException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class Omnivore implements Species, Cloneable {
+public class Omnivore implements Species {
     private int ID;
     private int speed;
     private String name;
     private int vitality;
     private int intMove;
     private boolean been;
+    private boolean ate = false;
     private Random generator = new Random();
+    private ArrayList<String> eatLis = new ArrayList<String>();
     public Omnivore(int ID, String name, int speed, int vitality, boolean been) {
         this.ID = ID;
         this.speed = speed;
@@ -20,6 +24,11 @@ public class Omnivore implements Species, Cloneable {
         this.vitality = vitality;
         this.intMove = speed;
         this.been = been;
+        this.eatLis.add("potato");
+        this.eatLis.add("grass");
+        this.eatLis.add("bear");
+        this.eatLis.add("cow");
+        this.eatLis.add("pig");
     }
 
     @Override
@@ -69,10 +78,34 @@ public class Omnivore implements Species, Cloneable {
     }
 
     @Override
-    public void copulate() {
+    public void copulate(SingleCell[][] map, int x, int y, int size) {
 
     }
 
+    @Override
+    public void eat(List<Species> speciesList){
+        if (this.ate == false) {
+            for (Species species : speciesList) {
+                if (eatLis.contains(species.getName()) && species.isAte() == false && species != this) {
+                    this.vitality = this.vitality + species.getVitality();
+                    species.setVitality(0);
+                    species.setAte(true);
+                    break;
+
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean isAte() {
+        return ate;
+    }
+
+    @Override
+    public void setAte(boolean ate) {
+        this.ate = ate;
+    }
     @Override
     public int getID() {
         return ID;
@@ -100,7 +133,7 @@ public class Omnivore implements Species, Cloneable {
 
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {
-        if (this.vitality <= 0) {
+        if (this.vitality <= 0 || this.ate == true) {
             map[x][y].delete(this);
             return 0;
         }
