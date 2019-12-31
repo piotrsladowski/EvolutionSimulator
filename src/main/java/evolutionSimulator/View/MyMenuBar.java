@@ -80,7 +80,7 @@ public class MyMenuBar {
                     aboutStage = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/fxml/About.fxml"));
-                    Scene aboutScene = new Scene(fxmlLoader.load(), 400, 300);
+                    Scene aboutScene = new Scene(fxmlLoader.load());
                     aboutStage.setTitle("About");
                     aboutStage.setScene(aboutScene);
                     aboutStage.initModality(Modality.NONE);
