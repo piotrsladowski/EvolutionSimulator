@@ -20,7 +20,6 @@ public class SingleCell {
         return speciesList;
     }
 
-
     public boolean hasAnySpecies(){
         if(speciesList.size() == 0)
             return false;
@@ -30,5 +29,6 @@ public class SingleCell {
 
     public void delete(Species species){
         speciesList.remove(species);
+        System.out.println("XD");
     }
 }

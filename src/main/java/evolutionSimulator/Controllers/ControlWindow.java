@@ -6,8 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
-import java.beans.EventHandler;
 import java.util.Properties;
 
 public class ControlWindow extends Thread{
@@ -15,10 +13,12 @@ public class ControlWindow extends Thread{
     private int yearNum;
     private int dayNum;
     private boolean paused;
+    private Object pauseLock;
 
     public void setProperties(Properties properties){
         this.properties = properties;
     }
+    public void setPauseLock(Object pauseLock){ this.pauseLock = pauseLock; }
 
     @FXML
     private Label yearNumber;
@@ -38,7 +38,10 @@ public class ControlWindow extends Thread{
 
     @FXML
     public void initialize(){
-        new Thread(task).start();
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+        //new Thread(task).start();
         Platform.runLater((() -> {
             paused = Boolean.parseBoolean(properties.getProperty("paused"));
             task.valueProperty().addListener((dayNum, oldValue, newValue) -> {
@@ -74,7 +77,11 @@ public class ControlWindow extends Thread{
     };
 
     @FXML
-    public void pauseButtonHandle(ActionEvent actionEvent) {
+    public void pauseButtonHandle(ActionEvent actionEvent) throws InterruptedException {
+/*        synchronized (pauseLock){
+            pauseLock.wait();
+        }*/
+
         paused = true;
         properties.setProperty("paused", "true");
         setButtons();
@@ -94,13 +101,19 @@ public class ControlWindow extends Thread{
     }
 
     public void resumeButtonHandle(ActionEvent actionEvent) {
+        synchronized (pauseLock){
+            pauseLock.notify();
+        }
         paused = false;
         properties.setProperty("paused", "false");
         setButtons();
     }
 
     public void nextDayButtonHandle(ActionEvent actionEvent) {
-
+        synchronized (pauseLock){
+            pauseLock.notify();
+        }
+        properties.setProperty("paused", "true");
     }
 }
 
