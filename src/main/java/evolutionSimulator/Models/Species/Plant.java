@@ -3,14 +3,26 @@ package evolutionSimulator.Models.Species;
 import evolutionSimulator.Models.SingleCell;
 
 import javax.swing.*;
+import java.util.List;
 
 public class Plant implements Species{
     private int ID;
     private String name;
     private int vitality = 100;
+    private boolean ate = false;
     public Plant(int ID, String name) {
         this.ID = ID;
         this.name = name;
+    }
+
+    @Override
+    public boolean isAte() {
+        return ate;
+    }
+
+    @Override
+    public void setAte(boolean ate) {
+        this.ate = ate;
     }
 
     @Override
@@ -19,9 +31,17 @@ public class Plant implements Species{
     }
 
     @Override
-    public void copulate() {
+    public void copulate(List<Species> speciesList) {
 
     }
+
+/*    @Override
+    public void copulate(SingleCell[][] map, int x, int y, int size) {
+
+    }*/
+
+    @Override
+    public void eat(List<Species> speciesList){}
 
     @Override
     public int getID() {
@@ -45,11 +65,11 @@ public class Plant implements Species{
     @Override
     public void setVitality(int vitality){
         this.vitality = vitality;
-    };
+    }
 
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {
-        if (this.vitality <= 0) {
+        if (this.vitality <= 0 || this.ate == true) {
             map[x][y].delete(this);
             return 0;
         }

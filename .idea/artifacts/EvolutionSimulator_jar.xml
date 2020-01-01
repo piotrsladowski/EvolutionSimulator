@@ -3,7 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/EvolutionSimulator_jar</output-path>
     <root id="archive" name="EvolutionSimulator.jar">
       <element id="module-output" name="EvolutionSimulator" />
-      <element id="library" level="project" name="lib" />
     </root>
   </artifact>
 </component>

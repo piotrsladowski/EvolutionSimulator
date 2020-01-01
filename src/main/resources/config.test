@@ -12,7 +12,7 @@ ver2=2.0
     speed = 20
     food_type = meat_eater
     percentageOfTotal = 23
-    vitality = 90
+    vitality = 50
 </Lion>
 
 <Cow>
@@ -29,7 +29,7 @@ ver2=2.0
     wiek = 32
     food_type = omnivore
     percentageOfTotal = 23
-    vitality = 60
+    vitality = 50
 </Pig>
 
 <Bear>
@@ -38,7 +38,7 @@ ver2=2.0
     food_type = omnivore
     optional = nic
     percentageOfTotal = 13
-    vitality = 100
+    vitality = 50
 </Bear>
 
 [endAnimalsDeclaration]
