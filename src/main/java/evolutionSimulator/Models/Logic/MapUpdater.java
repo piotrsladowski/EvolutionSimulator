@@ -61,36 +61,35 @@ public class MapUpdater extends Thread{
                         List<Species> speciesList = map[i][j].getAllSpecies();
                         int n = 0;
                         while (speciesList.size() != 0) {
-                            System.out.println(speciesList.size() + " n " + n);
+                            //System.out.println(speciesList.size() + " n " + n);
                             if (speciesList.size() == n) {
-                                System.out.println("Break M");
+                                //System.out.println("Break M");
                                 break;
                             } else {
-                                System.out.println("Move M");
+                                //System.out.println("Move M");
                                 speciesList.get(n).move(map, i, j, gridSize);
                                 n++;
                             }
                         }
                     }
                 }
-                System.out.println("Ruszone");
+                //System.out.println("Ruszone");
                 for (int i = 0; i < gridSize; i++) {
                     for (int j = 0; j < gridSize; j++) {
                         List<Species> speciesList = map[i][j].getAllSpecies();
                         int n = 0;
                         while (speciesList.size() != 0) {
-                            System.out.println(speciesList.size() + " n " + n);
+                            //System.out.println(speciesList.size() + " n " + n);
                             if (speciesList.size() == n) {
-                                System.out.println("Break M");
+                                //System.out.println("Break M");
                                 break;
                             } else {
                                 n = n + speciesList.get(n).updateVitality(map, i, j);
-                                System.out.println("Move M");
+                                //System.out.println("Move M");
                             }
                         }
                     }
                 }
-                cleardead();
                 day++;
                 if(day == 365){
                     day = 0;
@@ -109,25 +108,4 @@ public class MapUpdater extends Thread{
 
         }
     };
-
-    public void cleardead(){
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                List<Species> speciesList = map[i][j].getAllSpecies();
-                int n = 0;
-                while (speciesList.size() != 0) {
-                    if (speciesList.size() == n) {
-                        break;
-                    } else {
-                        n = n + speciesList.get(n).updateVitality(map, i, j);
-                    }
-                }
-            }
-        }
-    }
 }
-
-
-
-
-

@@ -3,6 +3,7 @@ package evolutionSimulator.Controllers;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Models.Species.Species;
 import evolutionSimulator.View.MainWindow;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
 import java.util.Map;
@@ -25,7 +26,10 @@ public class GUIUpdater {
                     MainWindow.cellGUIArray[i][j].setFill(iconsList.get(item.getName()));
                     MainWindow.cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
                 }
-
+                else{
+                    MainWindow.cellGUIArray[i][j].setFill(Color.YELLOW);
+                    MainWindow.cellGUIArray[i][j].setOpacity(1);
+                }
             }
         }
     }
