@@ -73,7 +73,7 @@ public class MapUpdater extends Thread{
                         }
                     }
                 }
-                //System.out.println("Ruszone");
+                cleardead();
                 for (int i = 0; i < gridSize; i++) {
                     for (int j = 0; j < gridSize; j++) {
                         List<Species> speciesList = map[i][j].getAllSpecies();
@@ -84,12 +84,14 @@ public class MapUpdater extends Thread{
                                 //System.out.println("Break M");
                                 break;
                             } else {
-                                n = n + speciesList.get(n).updateVitality(map, i, j);
                                 //System.out.println("Move M");
+                                speciesList.get(n).eat(speciesList);
+                                n++;
                             }
                         }
                     }
                 }
+                cleardead();
                 day++;
                 if(day == 365){
                     day = 0;
@@ -108,4 +110,24 @@ public class MapUpdater extends Thread{
 
         }
     };
+
+
+    public void cleardead(){
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                List<Species> speciesList = map[i][j].getAllSpecies();
+                int n = 0;
+                while (speciesList.size() != 0) {
+                    //System.out.println(speciesList.size() + " n " + n);
+                    if (speciesList.size() == n) {
+                        //System.out.println("Break M");
+                        break;
+                    } else {
+                        n = n + speciesList.get(n).updateVitality(map, i, j);
+                        //System.out.println("Move M");
+                    }
+                }
+            }
+        }
+    }
 }
