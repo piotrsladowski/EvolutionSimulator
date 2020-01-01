@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="evolutionSimulator.Controllers.ControlWindow">
+   <children>
+      <HBox alignment="CENTER" prefHeight="30.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" text="Year:">
+               <padding>
+                  <Insets right="10.0" />
+               </padding></Label>
+            <Label fx:id="yearNumber" text="wait...">
+               <padding>
+                  <Insets left="10.0" />
+               </padding></Label>
+         </children></HBox>
+      <HBox alignment="CENTER" prefHeight="30.0">
+         <children>
+            <Label alignment="CENTER_RIGHT" text="Day:">
+               <padding>
+                  <Insets right="10.0" />
+               </padding></Label>
+            <Label fx:id="dayNumber" text="wait...">
+               <padding>
+                  <Insets left="10.0" />
+               </padding></Label>
+         </children></HBox>
+      <HBox alignment="CENTER" prefHeight="60.0">
+         <children>
+            <Button fx:id="pause_button" mnemonicParsing="false" onAction="#pauseButtonHandle" text="Pause" />
+            <Button fx:id="resume_button" mnemonicParsing="false" onAction="#resumeButtonHandle" text="Resume" />
+            <Button fx:id="nextDay_button" mnemonicParsing="false" onAction="#nextDayButtonHandle" text="Next day" />
+         </children></HBox>
+      <HBox prefHeight="60.0" />
+   </children>
+</VBox>
