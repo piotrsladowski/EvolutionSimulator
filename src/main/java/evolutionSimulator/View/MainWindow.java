@@ -3,7 +3,6 @@ package evolutionSimulator.View;
 import evolutionSimulator.Models.CellGUI;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
-import evolutionSimulator.Models.Species.Animals.Animal;
 import evolutionSimulator.Models.Species.Plant;
 import evolutionSimulator.Models.Species.Species;
 import javafx.event.EventHandler;
