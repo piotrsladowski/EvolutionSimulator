@@ -29,6 +29,6 @@ public class SingleCell {
 
     public void delete(Species species){
         speciesList.remove(species);
-        System.out.println("XD");
+        //System.out.println("XD");
     }
 }
