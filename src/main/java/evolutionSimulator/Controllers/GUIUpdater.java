@@ -27,6 +27,7 @@ public class GUIUpdater {
                     MainWindow.cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
                 }
                 else{
+                    //MainWindow.cellGUIArray[i][j].setFill(null);
                     MainWindow.cellGUIArray[i][j].setFill(Color.YELLOW);
                     MainWindow.cellGUIArray[i][j].setOpacity(1);
                 }

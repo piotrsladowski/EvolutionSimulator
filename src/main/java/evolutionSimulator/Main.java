@@ -29,7 +29,13 @@ public class Main extends Application {
         final Object pauseLock = new Object();
         properties.setProperty("year", "0");
         properties.setProperty("day", "1");
+
+        //TODO add to config file
         properties.setProperty("paused", "false");
+        properties.setProperty("spawnPlants", "false");
+        properties.setProperty("procreationEnabled", "true");
+        properties.setProperty("eatingEnabled", "true");
+        properties.setProperty("motionEnabled", "true");
 
         // generate maps (front and back)
         MyMap myMap = new MyMap(gridSize);

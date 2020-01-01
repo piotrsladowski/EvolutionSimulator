@@ -13,12 +13,20 @@ public class ControlWindow extends Thread{
     private int yearNum;
     private int dayNum;
     private boolean paused;
+    private boolean spawnPlants;
+    private boolean procreationEnabled;
+    private boolean eatingEnabled;
+    private boolean motionEnabled;
     private Object pauseLock;
 
     public void setProperties(Properties properties){
         this.properties = properties;
     }
-    public void setPauseLock(Object pauseLock){ this.pauseLock = pauseLock; }
+    public void setPauseLock(Object pauseLock){
+        this.pauseLock = pauseLock;
+    }
+
+    //region Buttons Declaration
 
     @FXML
     private Label yearNumber;
@@ -35,6 +43,31 @@ public class ControlWindow extends Thread{
     @FXML
     private Button nextDay_button;
 
+    @FXML
+    private Button plantSpawnStart_button;
+
+    @FXML
+    private Button plantSpawnStop_button;
+
+    @FXML
+    private Button procreationStart_button;
+
+    @FXML
+    private Button procreationStop_button;
+
+    @FXML
+    private Button eatStart_button;
+
+    @FXML
+    private Button eatStop_button;
+
+    @FXML
+    private Button motionStart_button;
+
+    @FXML
+    private Button motionStop_button;
+
+    //endregion
 
     @FXML
     public void initialize(){
@@ -44,6 +77,10 @@ public class ControlWindow extends Thread{
         //new Thread(task).start();
         Platform.runLater((() -> {
             paused = Boolean.parseBoolean(properties.getProperty("paused"));
+            spawnPlants = Boolean.parseBoolean(properties.getProperty("plantsPaused"));
+            procreationEnabled = Boolean.parseBoolean(properties.getProperty("procreationEnabled"));
+            eatingEnabled = Boolean.parseBoolean(properties.getProperty("eatingEnabled"));
+            motionEnabled = Boolean.parseBoolean(properties.getProperty("motionEnabled"));
             task.valueProperty().addListener((dayNum, oldValue, newValue) -> {
                 if(newValue != null) {
                     dayNumber.setText(String.valueOf(newValue));
@@ -51,13 +88,7 @@ public class ControlWindow extends Thread{
                 }
 
             });
-            if(paused){
-                pause_button.setDisable(true);
-            }
-            else {
-                resume_button.setDisable(true);
-                nextDay_button.setDisable(true);
-            }
+            setButtons();
         }));
 
 
@@ -66,7 +97,7 @@ public class ControlWindow extends Thread{
     Task<Integer> task = new Task<Integer>() {
         @Override
         protected Integer call() throws Exception {
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 32000; i++) {
                 dayNum = Integer.parseInt(properties.getProperty("day"));
                 yearNum = Integer.parseInt(properties.getProperty("year"));
                 updateValue(dayNum);
@@ -92,11 +123,43 @@ public class ControlWindow extends Thread{
             pause_button.setDisable(true);
             resume_button.setDisable(false);
             nextDay_button.setDisable(false);
-        }
-        else{
+        } else{
             pause_button.setDisable(false);
             resume_button.setDisable(true);
             nextDay_button.setDisable(true);
+        }
+
+        if(spawnPlants){
+            plantSpawnStop_button.setDisable(false);
+            plantSpawnStart_button.setDisable(true);
+        } else {
+            plantSpawnStop_button.setDisable(true);
+            plantSpawnStart_button.setDisable(false);
+        }
+
+        if(procreationEnabled){
+            procreationStart_button.setDisable(true);
+            procreationStop_button.setDisable(false);
+        } else {
+            procreationStart_button.setDisable(false);
+            procreationStop_button.setDisable(true);
+        }
+
+        if(eatingEnabled){
+            eatStart_button.setDisable(true);
+            eatStop_button.setDisable(false);
+        }
+        else {
+            eatStart_button.setDisable(false);
+            eatStop_button.setDisable(true);
+        }
+
+        if(motionEnabled){
+            motionStart_button.setDisable(true);
+            motionStop_button.setDisable(false);
+        } else {
+            motionStart_button.setDisable(false);
+            motionStop_button.setDisable(true);
         }
     }
 
@@ -114,6 +177,58 @@ public class ControlWindow extends Thread{
             pauseLock.notify();
         }
         properties.setProperty("paused", "true");
+    }
+
+    public void plantSpawnStartButtonHandle(ActionEvent actionEvent) {
+        spawnPlants = true;
+        properties.setProperty("spawnPlants", "true");
+        setButtons();
+    }
+
+    public void plantSpawnStopButtonHandle(ActionEvent actionEvent) {
+        spawnPlants = false;
+        properties.setProperty("spawnPlants", "false");
+        setButtons();
+    }
+
+    public void procreationStartButtonHandle(ActionEvent actionEvent) {
+        procreationEnabled = true;
+        properties.setProperty("procreationEnabled", "true");
+        setButtons();
+    }
+
+    public void procreationStopButtonHandle(ActionEvent actionEvent) {
+        procreationEnabled = false;
+        properties.setProperty("procreationEnabled", "false");
+        setButtons();
+    }
+
+    public void eatStartButtonHandle(ActionEvent actionEvent) {
+        eatingEnabled = true;
+        properties.setProperty("eatingEnabled", "true");
+        setButtons();
+    }
+
+    public void eatStopButtonHandle(ActionEvent actionEvent) {
+        eatingEnabled = false;
+        properties.setProperty("eatingEnabled", "false");
+        setButtons();
+    }
+
+    public void motionStartButtonHandle(ActionEvent actionEvent) {
+        motionEnabled = true;
+        properties.setProperty("motionEnabled", "true");
+        setButtons();
+    }
+
+    public void motionStopButtonHandle(ActionEvent actionEvent) {
+        motionEnabled = false;
+        properties.setProperty("motionEnabled", "false");
+        setButtons();
+    }
+
+    public void removePlantsButtonHandle(ActionEvent actionEvent) {
+
     }
 }
 

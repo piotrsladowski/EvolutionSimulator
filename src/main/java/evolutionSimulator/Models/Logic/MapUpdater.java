@@ -4,10 +4,8 @@ import evolutionSimulator.Controllers.GUIUpdater;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Models.Species.Plant;
 import evolutionSimulator.Models.Species.Species;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 
-import javax.naming.PartialResultException;
 import java.util.*;
 
 public class MapUpdater extends Thread{
@@ -57,11 +55,17 @@ public class MapUpdater extends Thread{
 
                     }
                 }
-                setPlant();
-                moveDay();
-                cleardead();
-                eatDay();
-                cleardead();
+                if(properties.getProperty("spawnPlants").equals("true")) {
+                    setPlant();
+                }
+                if(properties.getProperty("motionEnabled").equals("true")){
+                    moveDay();
+                }
+                clearDead();
+                if(properties.getProperty("eatingEnabled").equals("true")){
+                    eatDay();
+                }
+                clearDead();
                 System.out.println(day+" day " + speciesInt());
                 day++;
                 if(day == 365){
@@ -71,9 +75,8 @@ public class MapUpdater extends Thread{
                 }
                 properties.setProperty("day", String.valueOf(day));
                 guiUpdater.update(map);
-                System.out.println(day);
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -120,7 +123,7 @@ public class MapUpdater extends Thread{
                 }
             }
     }}
-    public void cleardead(){
+    public void clearDead(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 List<Species> speciesList = map[i][j].getAllSpecies();

@@ -1,7 +1,7 @@
 [General]
-gridSize = 50
-percentageOfPlants = 30
-percentageOfAnimals = 70
+gridSize = 40
+percentageOfPlants = 5
+percentageOfAnimals = 10
 ver=1.0
 ver2=2.0
 [endGeneral]

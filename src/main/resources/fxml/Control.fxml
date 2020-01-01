@@ -6,7 +6,7 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="evolutionSimulator.Controllers.ControlWindow">
    <children>
-      <HBox alignment="CENTER" prefHeight="30.0">
+      <HBox alignment="CENTER" prefHeight="20.0">
          <children>
             <Label alignment="CENTER_RIGHT" text="Year:">
                <padding>
@@ -17,7 +17,7 @@
                   <Insets left="10.0" />
                </padding></Label>
          </children></HBox>
-      <HBox alignment="CENTER" prefHeight="30.0">
+      <HBox alignment="CENTER" prefHeight="20.0">
          <children>
             <Label alignment="CENTER_RIGHT" text="Day:">
                <padding>
@@ -28,12 +28,49 @@
                   <Insets left="10.0" />
                </padding></Label>
          </children></HBox>
-      <HBox alignment="CENTER" prefHeight="60.0">
+      <HBox alignment="CENTER" prefHeight="40.0">
          <children>
             <Button fx:id="pause_button" mnemonicParsing="false" onAction="#pauseButtonHandle" text="Pause" />
             <Button fx:id="resume_button" mnemonicParsing="false" onAction="#resumeButtonHandle" text="Resume" />
             <Button fx:id="nextDay_button" mnemonicParsing="false" onAction="#nextDayButtonHandle" text="Next day" />
          </children></HBox>
-      <HBox prefHeight="60.0" />
+      <HBox alignment="CENTER" prefHeight="50.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="25.0" layoutY="3.0" text="Plant spawning" />
+                  <Button fx:id="plantSpawnStart_button" layoutX="15.0" layoutY="23.0" mnemonicParsing="false" onAction="#plantSpawnStartButtonHandle" text="Start" />
+                  <Button fx:id="plantSpawnStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#plantSpawnStopButtonHandle" text="Stop" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="40.0" layoutY="3.0" text="Procreation" />
+                  <Button fx:id="procreationStart_button" layoutX="19.0" layoutY="23.0" mnemonicParsing="false" onAction="#procreationStartButtonHandle" text="Start" />
+                  <Button fx:id="procreationStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#procreationStopButtonHandle" text="Stop" />
+               </children>
+            </AnchorPane>
+         </children></HBox>
+      <HBox alignment="CENTER" prefHeight="50.0">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="50.0" layoutY="3.0" text="Eating" />
+                  <Button fx:id="eatStart_button" layoutX="15.0" layoutY="23.0" mnemonicParsing="false" onAction="#eatStartButtonHandle" text="Start" />
+                  <Button fx:id="eatStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#eatStopButtonHandle" text="Stop" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="50.0" layoutY="3.0" text="Motion" />
+                  <Button fx:id="motionStart_button" layoutX="19.0" layoutY="23.0" mnemonicParsing="false" onAction="#motionStartButtonHandle" text="Start" />
+                  <Button fx:id="motionStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#motionStopButtonHandle" text="Stop" />
+               </children>
+            </AnchorPane>
+         </children></HBox>
+      <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="removeAllPlants_button" mnemonicParsing="false" onAction="#removePlantsButtonHandle" text="Remove all plants from map" />
+         </children></HBox>
    </children>
 </VBox>
