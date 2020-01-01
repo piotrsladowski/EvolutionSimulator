@@ -31,9 +31,14 @@ public class Plant implements Species{
     }
 
     @Override
-    public void copulate(SingleCell[][] map, int x, int y, int size) {
+    public void copulate(List<Species> speciesList) {
 
     }
+
+/*    @Override
+    public void copulate(SingleCell[][] map, int x, int y, int size) {
+
+    }*/
 
     @Override
     public void eat(List<Species> speciesList){}
@@ -60,7 +65,7 @@ public class Plant implements Species{
     @Override
     public void setVitality(int vitality){
         this.vitality = vitality;
-    };
+    }
 
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {
