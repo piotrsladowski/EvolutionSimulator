@@ -7,10 +7,8 @@ import evolutionSimulator.Models.Species.Species;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 
-import java.util.ConcurrentModificationException;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
+import javax.naming.PartialResultException;
+import java.util.*;
 
 public class MapUpdater extends Thread{
     private SingleCell[][] map;
@@ -84,10 +82,14 @@ public class MapUpdater extends Thread{
         }
     };
     public void setPlant(){
+        ArrayList<String> plant = new ArrayList<>();
+        plant.add("grass");
+        plant.add("potato");
         for (int i =0; i<3; i++) {
+            int type = random.nextInt(2);
             int x = random.nextInt(gridSize);
             int y = random.nextInt(gridSize);
-            map[x][y].addSpeciesStartup(new Plant(1, "grass"));
+            map[x][y].addSpeciesStartup(new Plant(1, plant.get(type)));
     }}
     public void eatDay(){for (int i = 0; i < gridSize; i++) {
         for (int j = 0; j < gridSize; j++) {

@@ -34,28 +34,36 @@ public class Herbivore implements Species {
             int deltaX = 0;
             int deltaY = 0;
             while (this.intMove != 0) {
-                int direction = generator.nextInt(9);
+                int direction = generator.nextInt(8);
                 switch (direction) {
                     case 0:
                         deltaY = deltaY + 1;
+                        break;
                     case 1:
                         deltaY = deltaY + 1;
                         deltaX = deltaX + 1;
+                        break;
                     case 2:
                         deltaX = deltaX + 1;
+                        break;
                     case 3:
                         deltaY = deltaY - 1;
                         deltaX = deltaX + 1;
+                        break;
                     case 4:
                         deltaY = deltaY - 1;
+                        break;
                     case 5:
                         deltaY = deltaY - 1;
                         deltaX = deltaX - 1;
+                        break;
                     case 6:
                         deltaX = deltaX - 1;
+                        break;
                     case 7:
                         deltaY = deltaY + 1;
                         deltaX = deltaX - 1;
+                        break;
                 }
                 this.intMove = this.intMove - 1;
             }
