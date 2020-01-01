@@ -44,19 +44,19 @@ public class MyMap {
                 String foodType = animal[3];
                 int vitality = Integer.parseInt(animal[5]);
                 if ("meat_eater".equals(foodType)) {
-                    MeatEater m = new MeatEater(ID, name, ID, vitality,true);
+                    MeatEater m = new MeatEater(ID, name, ID, vitality,true,false);
                     SingleCell sc = new SingleCell();
                     sc.addSpeciesStartup(m);
                     map[cords[0]][cords[1]] = sc;
                 }
                 else if ("herbivore".equals(foodType)) {
-                    Herbivore h = new Herbivore(ID, name, ID, vitality,true);
+                    Herbivore h = new Herbivore(ID, name, ID, vitality,true,false);
                     SingleCell sc = new SingleCell();
                     sc.addSpeciesStartup(h);
                     map[cords[0]][cords[1]] = sc;
                 }
                 else if ("omnivore".equals(foodType)) {
-                    Omnivore o = new Omnivore(ID, name, ID, vitality,true);
+                    Omnivore o = new Omnivore(ID, name, ID, vitality,true,false);
                     SingleCell sc = new SingleCell();
                     sc.addSpeciesStartup(o);
                     map[cords[0]][cords[1]] = sc;

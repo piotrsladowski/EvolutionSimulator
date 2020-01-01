@@ -10,11 +10,19 @@ public class Plant implements Species{
     private String name;
     private int vitality = 100;
     private boolean ate = false;
+    private boolean pregned;
     public Plant(int ID, String name) {
         this.ID = ID;
         this.name = name;
     }
-
+    @Override
+    public boolean isPregned() {
+        return pregned;
+    }
+    @Override
+    public void setPregned(boolean pregned) {
+        this.pregned = pregned;
+    }
     @Override
     public boolean isAte() {
         return ate;
@@ -34,11 +42,6 @@ public class Plant implements Species{
     public void copulate(List<Species> speciesList) {
 
     }
-
-/*    @Override
-    public void copulate(SingleCell[][] map, int x, int y, int size) {
-
-    }*/
 
     @Override
     public void eat(List<Species> speciesList){}

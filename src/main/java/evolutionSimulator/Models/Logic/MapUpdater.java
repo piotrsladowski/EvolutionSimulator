@@ -2,6 +2,7 @@ package evolutionSimulator.Models.Logic;
 
 import evolutionSimulator.Controllers.GUIUpdater;
 import evolutionSimulator.Models.SingleCell;
+import evolutionSimulator.Models.Species.Plant;
 import evolutionSimulator.Models.Species.Species;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -9,6 +10,7 @@ import javafx.concurrent.Task;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 public class MapUpdater extends Thread{
     private SingleCell[][] map;
@@ -18,6 +20,7 @@ public class MapUpdater extends Thread{
     private Properties properties;
     private Object pauseLock;
     private volatile boolean paused = false;
+    private Random random = new Random();
 
     public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties, Object pauseLock) {
         this.map = map;
@@ -56,41 +59,9 @@ public class MapUpdater extends Thread{
 
                     }
                 }
-                for (int i = 0; i < gridSize; i++) {
-                    for (int j = 0; j < gridSize; j++) {
-                        List<Species> speciesList = map[i][j].getAllSpecies();
-                        int n = 0;
-                        while (speciesList.size() != 0) {
-                            //System.out.println(speciesList.size() + " n " + n);
-                            if (speciesList.size() == n) {
-                                //System.out.println("Break M");
-                                break;
-                            } else {
-                                //System.out.println("Move M");
-                                speciesList.get(n).move(map, i, j, gridSize);
-                                n++;
-                            }
-                        }
-                    }
-                }
+                moveDay();
                 cleardead();
-                for (int i = 0; i < gridSize; i++) {
-                    for (int j = 0; j < gridSize; j++) {
-                        List<Species> speciesList = map[i][j].getAllSpecies();
-                        int n = 0;
-                        while (speciesList.size() != 0) {
-                            //System.out.println(speciesList.size() + " n " + n);
-                            if (speciesList.size() == n) {
-                                //System.out.println("Break M");
-                                break;
-                            } else {
-                                //System.out.println("Move M");
-                                speciesList.get(n).eat(speciesList);
-                                n++;
-                            }
-                        }
-                    }
-                }
+                eatDay();
                 cleardead();
                 day++;
                 if(day == 365){
@@ -110,21 +81,51 @@ public class MapUpdater extends Thread{
 
         }
     };
-
-
+    public void setPlant(){
+        for (int i =0; i<3; i++) {
+            int x = random.nextInt(gridSize);
+            int y = random.nextInt(gridSize);
+            map[x][y].addSpeciesStartup(new Plant(1, "grass"));
+    }}
+    public void eatDay(){for (int i = 0; i < gridSize; i++) {
+        for (int j = 0; j < gridSize; j++) {
+            List<Species> speciesList = map[i][j].getAllSpecies();
+            int n = 0;
+            while (speciesList.size() != 0) {
+                if (speciesList.size() == n) {
+                    break;
+                } else {
+                    speciesList.get(n).eat(speciesList);
+                    n++;
+                }
+            }
+        }
+    }}
+    public void moveDay(){
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                List<Species> speciesList = map[i][j].getAllSpecies();
+                int n = 0;
+                while (speciesList.size() != 0) {
+                    if (speciesList.size() == n) {
+                        break;
+                    } else {
+                        speciesList.get(n).move(map, i, j, gridSize);
+                        n++;
+                    }
+                }
+            }
+    }}
     public void cleardead(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 List<Species> speciesList = map[i][j].getAllSpecies();
                 int n = 0;
                 while (speciesList.size() != 0) {
-                    //System.out.println(speciesList.size() + " n " + n);
                     if (speciesList.size() == n) {
-                        //System.out.println("Break M");
                         break;
                     } else {
                         n = n + speciesList.get(n).updateVitality(map, i, j);
-                        //System.out.println("Move M");
                     }
                 }
             }

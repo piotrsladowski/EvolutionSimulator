@@ -15,15 +15,17 @@ public class Omnivore implements Species {
     private int intMove;
     private boolean been;
     private boolean ate = false;
+    private boolean pregned;
     private Random generator = new Random();
     private ArrayList<String> eatLis = new ArrayList<String>();
-    public Omnivore(int ID, String name, int speed, int vitality, boolean been) {
+    public Omnivore(int ID, String name, int speed, int vitality, boolean been, boolean pregned) {
         this.ID = ID;
         this.speed = speed;
         this.name = name;
         this.vitality = vitality;
         this.intMove = speed;
         this.been = been;
+        this.pregned = pregned;
         this.eatLis.add("potato");
         this.eatLis.add("grass");
         this.eatLis.add("cow");
@@ -69,7 +71,7 @@ public class Omnivore implements Species {
                 deltaY = -deltaY;
             }
             ;
-            Omnivore copy_this = new Omnivore(this.ID, this.name, this.speed, this.vitality - 10, false);
+            Omnivore copy_this = new Omnivore(this.ID, this.name, this.speed, this.vitality - 10, false,false);
             map[x + deltaX][y + deltaY].getAllSpecies().add(copy_this);
             this.vitality = 0;
         }
@@ -78,6 +80,22 @@ public class Omnivore implements Species {
 
     @Override
     public void copulate(List<Species> speciesList) {
+        if (this.pregned == false) {
+            for (Species species : speciesList) {
+                if (species.getName() == this.name && species.isPregned()==false && species != this) {
+                    int newV = this.vitality/2;
+                    int newVP = species.getVitality()/2;
+                    Omnivore child = new Omnivore(this.ID,this.name,this.speed,newV+newVP,true,true);
+                    this.vitality=newV;
+                    species.setVitality(newVP);
+                    speciesList.add(child);
+                    this.pregned=true;
+                    species.setPregned(true);
+                    break;
+                }
+            }
+        }
+
 
     }
 
@@ -95,7 +113,14 @@ public class Omnivore implements Species {
             }
         }
     }
-
+    @Override
+    public boolean isPregned() {
+        return pregned;
+    }
+    @Override
+    public void setPregned(boolean pregned) {
+        this.pregned = pregned;
+    }
     @Override
     public boolean isAte() {
         return ate;
@@ -136,7 +161,10 @@ public class Omnivore implements Species {
             map[x][y].delete(this);
             return 0;
         }
-        else {this.been = true;}
+        else {
+            this.been = true;
+            this.pregned = false;
             return 1;
+        }
     }
 }
