@@ -59,10 +59,12 @@ public class MapUpdater extends Thread{
 
                     }
                 }
+                setPlant();
                 moveDay();
                 cleardead();
                 eatDay();
                 cleardead();
+                System.out.println(day+" day " + speciesInt());
                 day++;
                 if(day == 365){
                     day = 0;
@@ -131,4 +133,15 @@ public class MapUpdater extends Thread{
             }
         }
     }
+    public int speciesInt(){
+        int ilosc = 0;
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                List<Species> speciesList = map[i][j].getAllSpecies();
+                ilosc += speciesList.size();
+                }
+            }
+        return ilosc;
+        }
 }
+
