@@ -23,10 +23,12 @@ public class MyMenuBar {
     private Stage aboutStage = null;
     private Stage controlStage = null;
     private Properties properties;
+    private Object pauseLock;
 
-    public MyMenuBar(Stage parentStage, Properties properties) {
+    public MyMenuBar(Stage parentStage, Properties properties, Object pauseLock) {
         this.parentStage = parentStage;
         this.properties = properties;
+        this.pauseLock = pauseLock;
     }
 
     public javafx.scene.control.MenuBar build(){
@@ -39,6 +41,7 @@ public class MyMenuBar {
                     fxmlLoader.setLocation(getClass().getResource("/fxml/Control.fxml"));
                     Parent root = (Parent)fxmlLoader.load();
                     fxmlLoader.<ControlWindow>getController().setProperties(properties);
+                    fxmlLoader.<ControlWindow>getController().setPauseLock(pauseLock);
                     //fxmlLoader.setController(new ControlWindow(properties));
                     Scene controlScene = new Scene(root);
                     controlStage.setTitle("Control");
@@ -77,7 +80,7 @@ public class MyMenuBar {
                     aboutStage = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/fxml/About.fxml"));
-                    Scene aboutScene = new Scene(fxmlLoader.load(), 400, 300);
+                    Scene aboutScene = new Scene(fxmlLoader.load());
                     aboutStage.setTitle("About");
                     aboutStage.setScene(aboutScene);
                     aboutStage.initModality(Modality.NONE);

@@ -27,14 +27,16 @@ public class MainWindow {
     private GridPane mainGrid = new GridPane();
     private SingleCell[][] map;
     private Map<String, ImagePattern> iconsList = new HashMap<>();
+    private Object pauseLock;
 
     private Properties properties;
 
-    public MainWindow(Stage stage, int gridSize, SingleCell[][] map, Properties properties){
+    public MainWindow(Stage stage, int gridSize, SingleCell[][] map, Properties properties, Object pauseLock){
         this.stage = stage;
         MainWindow.gridSize = gridSize;
         this.map = map;
         this.properties = properties;
+        this.pauseLock = pauseLock;
         createCellsGUI();
         createStackPanes();
     }
@@ -101,7 +103,7 @@ public class MainWindow {
         mainGrid.setStyle("-fx-background-color: black");
         ZoomableScrollPane mapRoot = new ZoomableScrollPane(mainGrid);
         BorderPane root = new BorderPane();
-        MenuBar menuBar = new MyMenuBar(stage, properties).build();
+        MenuBar menuBar = new MyMenuBar(stage, properties, pauseLock).build();
         root.setTop(menuBar);
         root.setCenter(mapRoot);
 

@@ -26,6 +26,7 @@ public class Main extends Application {
         int gridSize = Integer.parseInt(configFile.getGeneralProperties().get("gridSize"));
 
         Properties properties = new Properties();
+        final Object pauseLock = new Object();
         properties.setProperty("year", "0");
         properties.setProperty("day", "1");
         properties.setProperty("paused", "false");
@@ -33,13 +34,13 @@ public class Main extends Application {
         // generate maps (front and back)
         MyMap myMap = new MyMap(gridSize);
         SingleCell[][] map = myMap.generate(readAnimals, readPlants);
-        MainWindow mainWindow = new MainWindow(primaryStage, gridSize, map, properties);
+        MainWindow mainWindow = new MainWindow(primaryStage, gridSize, map, properties, pauseLock);
         Map<String, ImagePattern> iconsList = mainWindow.generateIcons(readAnimals, readPlants);
         mainWindow.build();
 
         // give control to the Logic function
         GUIUpdater guiUpdater = new GUIUpdater(iconsList, gridSize);
-        MapUpdater mapUpdater = new MapUpdater(map, guiUpdater, properties);
+        MapUpdater mapUpdater = new MapUpdater(map, guiUpdater, properties, pauseLock);
         mapUpdater.start();
     }
 
