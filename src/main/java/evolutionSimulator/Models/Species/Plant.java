@@ -31,7 +31,7 @@ public class Plant implements Species{
     }
 
     @Override
-    public void copulate(SingleCell[][] map, int x, int y, int size) {
+    public void copulate(List<Species> speciesList) {
 
     }
 
