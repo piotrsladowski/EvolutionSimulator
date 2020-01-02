@@ -1,4 +1,4 @@
-package evolutionSimulator.Models;
+package evolutionSimulator.View;
 
 import javafx.scene.shape.Rectangle;
 

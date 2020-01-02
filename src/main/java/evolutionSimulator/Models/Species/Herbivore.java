@@ -155,7 +155,8 @@ public class Herbivore implements Species {
     @Override
     public void setVitality(int vitality){
         this.vitality = vitality;
-    };
+    }
+
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {
         if (this.vitality <= 0 || this.ate == true) {

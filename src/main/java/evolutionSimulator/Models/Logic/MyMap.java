@@ -1,4 +1,5 @@
 package evolutionSimulator.Models.Logic;
+import evolutionSimulator.Controllers.MyLogger;
 import evolutionSimulator.Models.Species.Herbivore;
 import evolutionSimulator.Models.Species.MeatEater;
 import evolutionSimulator.Models.Species.Omnivore;
@@ -91,6 +92,7 @@ public class MyMap {
             SingleCell sc = new SingleCell();
             map[cords[0]][cords[1]] = sc;
         }
+        MyLogger.newLogInfo("Map successfully generated");
         return map;
     }
 }

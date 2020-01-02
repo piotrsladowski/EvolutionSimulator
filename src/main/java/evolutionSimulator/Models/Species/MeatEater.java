@@ -72,11 +72,9 @@ public class MeatEater implements Species {
             if (x + deltaX >= size || x + deltaX < 0) {
                 deltaX = -deltaX;
             }
-            ;
             if (y + deltaY >= size || y + deltaY < 0) {
                 deltaY = -deltaY;
             }
-            ;
             MeatEater copy_this = new MeatEater(this.ID, this.name, this.speed, this.vitality - 10, false, false);
             map[x + deltaX][y + deltaY].getAllSpecies().add(copy_this);
             this.vitality = 0;
@@ -159,7 +157,7 @@ public class MeatEater implements Species {
     @Override
     public void setVitality(int vitality){
         this.vitality = vitality;
-    };
+    }
 
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {

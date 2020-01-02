@@ -21,14 +21,10 @@ public class SingleCell {
     }
 
     public boolean hasAnySpecies(){
-        if(speciesList.size() == 0)
-            return false;
-        else
-            return true;
+        return speciesList.size() != 0;
     }
 
     public void delete(Species species){
         speciesList.remove(species);
-        //System.out.println("XD");
     }
 }

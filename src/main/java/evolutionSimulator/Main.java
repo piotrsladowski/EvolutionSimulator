@@ -2,12 +2,12 @@ package evolutionSimulator;
 
 import evolutionSimulator.Controllers.ConfigFile;
 import evolutionSimulator.Controllers.GUIUpdater;
+import evolutionSimulator.Controllers.MyLogger;
 import evolutionSimulator.Models.Logic.MapUpdater;
 import evolutionSimulator.Models.Logic.MyMap;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.View.MainWindow;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
 import java.util.List;
@@ -18,6 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        new MyLogger("Logger", null);
         // read config files
         ConfigFile configFile = new ConfigFile(getClass().getResource("/config.test").getFile());
         configFile.load();
@@ -32,7 +33,7 @@ public class Main extends Application {
 
         //TODO add to config file
         properties.setProperty("paused", "false");
-        properties.setProperty("spawnPlants", "false");
+        properties.setProperty("spawnPlants", "true");
         properties.setProperty("procreationEnabled", "true");
         properties.setProperty("eatingEnabled", "true");
         properties.setProperty("motionEnabled", "true");

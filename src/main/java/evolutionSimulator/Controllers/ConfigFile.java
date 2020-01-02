@@ -52,6 +52,7 @@ public class ConfigFile {
         }
 
         sectionSort(usefulLines);
+        MyLogger.newLogInfo("Successfully read the config file");
     }
 
     private void sectionSort(List<String> usefulLines) {

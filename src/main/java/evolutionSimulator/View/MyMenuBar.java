@@ -1,6 +1,7 @@
 package evolutionSimulator.View;
 
 import evolutionSimulator.Controllers.ControlWindow;
+import evolutionSimulator.Controllers.MyLogger;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,9 +60,6 @@ public class MyMenuBar {
                 else {
                     System.out.println("Control stage is not null");
                 }
-/*                if(!controlStage.isShowing()){
-                    controlStage.show();
-                }*/
             }
             catch (IOException e) {
                 Logger logger = Logger.getLogger(getClass().getName());
@@ -69,11 +68,6 @@ public class MyMenuBar {
         });
 
         MenuItem about = new MenuItem("About");
-/*        EventHandler<ActionEvent> aboutClick = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-            }
-        };*/
         about.setOnAction(event -> {
             try{
                 if(aboutStage == null) {
@@ -93,8 +87,7 @@ public class MyMenuBar {
                 }
             }
             catch (IOException e){
-                Logger logger = Logger.getLogger(getClass().getName());
-                logger.log(Level.SEVERE, "Failed to create new Window.", e);
+                MyLogger.newLogSevere("Failed to create new About Window.");
             }
         });
         MenuItem githubPage = new MenuItem("Github website");
@@ -110,6 +103,7 @@ public class MyMenuBar {
                 java.awt.Desktop.getDesktop().browse(u);
             } catch (IOException e) {
                 e.printStackTrace();
+                MyLogger.newLogSevere("Failed to open a Github website");
             }
         });
         final Menu menu1 = new Menu("File");
@@ -119,6 +113,7 @@ public class MyMenuBar {
         javafx.scene.control.MenuBar menuBar = new javafx.scene.control.MenuBar();
         menuBar.getMenus().add(menu1);
         menuBar.getMenus().add(menu2);
+        MyLogger.newLogInfo("Successfully generated MenuBar");
         return menuBar;
     }
 }

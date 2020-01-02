@@ -109,10 +109,6 @@ public class ControlWindow extends Thread{
 
     @FXML
     public void pauseButtonHandle(ActionEvent actionEvent) throws InterruptedException {
-/*        synchronized (pauseLock){
-            pauseLock.wait();
-        }*/
-
         paused = true;
         properties.setProperty("paused", "true");
         setButtons();

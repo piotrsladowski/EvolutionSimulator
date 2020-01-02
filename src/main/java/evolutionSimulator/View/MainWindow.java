@@ -1,10 +1,8 @@
 package evolutionSimulator.View;
 
-import evolutionSimulator.Models.CellGUI;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
 import evolutionSimulator.Models.Species.Species;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
@@ -13,7 +11,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.util.*;
 
@@ -98,7 +95,6 @@ public class MainWindow {
             }
         }
 
-        //mainGrid.setStyle("-fx-background-color: black; -fx-vgap: 1; -fx-hgap: 1");
         mainGrid.setStyle("-fx-background-color: black");
         ZoomableScrollPane mapRoot = new ZoomableScrollPane(mainGrid);
         BorderPane root = new BorderPane();
@@ -109,22 +105,9 @@ public class MainWindow {
         Scene scene = new Scene(root,500,400);
         stage.setScene(scene);
         stage.setTitle("Evolution Simulator");
-        stage.setOnShowing(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                //Basic fef = new Basic(maps);
-            }
+        stage.setOnShowing(event -> {
+            //do sth
         });
         stage.show();
-    }
-
-    public void refresh(){
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                Species item = map[i][j].getSpecies();
-                MainWindow.cellGUIArray[i][j].setFill(iconsList.get(item.getName()));
-                MainWindow.cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
-            }
-        }
     }
 }
