@@ -28,8 +28,8 @@ public class Omnivore implements Species {
         this.pregned = pregned;
         this.eatLis.add("potato");
         this.eatLis.add("grass");
-        this.eatLis.add("cow");
-        this.eatLis.add("lion");
+        //this.eatLis.add("cow");
+        //this.eatLis.add("lion");
     }
 
     @Override

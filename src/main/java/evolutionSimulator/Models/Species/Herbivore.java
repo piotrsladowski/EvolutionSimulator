@@ -25,7 +25,7 @@ public class Herbivore implements Species {
         this.intMove = speed;
         this.been = been;
         this.pregned = pregned;
-        this.eatLis.add("potato");
+        //this.eatLis.add("potato");
         this.eatLis.add("grass");
     }
     @Override

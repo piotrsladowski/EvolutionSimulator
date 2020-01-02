@@ -1,7 +1,7 @@
 [General]
-gridSize = 50
-percentageOfPlants = 30
-percentageOfAnimals = 70
+gridSize = 45
+percentageOfPlants = 50
+percentageOfAnimals = 50
 ver=1.0
 ver2=2.0
 [endGeneral]
@@ -11,16 +11,16 @@ ver2=2.0
     name = lion
     speed = 20
     food_type = meat_eater
-    percentageOfTotal = 23
-    vitality = 50
+    percentageOfTotal = 4
+    vitality = 700
 </Lion>
 
 <Cow>
     name = cow
     speed = 20
     food_type = herbivore
-    percentageOfTotal = 23
-    vitality = 90
+    percentageOfTotal = 50
+    vitality = 900
 </Cow>
 
 <Pig>
@@ -29,7 +29,7 @@ ver2=2.0
     wiek = 32
     food_type = omnivore
     percentageOfTotal = 23
-    vitality = 50
+    vitality = 200
 </Pig>
 
 <Bear>
@@ -37,8 +37,8 @@ ver2=2.0
     speed = 20
     food_type = omnivore
     optional = nic
-    percentageOfTotal = 13
-    vitality = 50
+    percentageOfTotal = 23
+    vitality = 200
 </Bear>
 
 [endAnimalsDeclaration]
@@ -49,7 +49,7 @@ ver2=2.0
     health_points = 30
     consume_time = 2
     eatable = true
-    percentageOfTotal = 60
+    percentageOfTotal = 50
 </Grass>
 
 <Potato>
@@ -57,6 +57,6 @@ ver2=2.0
     health_points = 30
     consume_time = 2
     eatable = true
-    percentageOfTotal = 20
+    percentageOfTotal = 50
 </Potato>
 [endPlantsDeclaration]

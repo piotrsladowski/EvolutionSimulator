@@ -19,7 +19,6 @@ public class MapUpdater extends Thread{
     private Object pauseLock;
     private volatile boolean paused = false;
     private Random random = new Random();
-
     public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties, Object pauseLock) {
         this.map = map;
         this.gridSize = map.length;
@@ -62,6 +61,8 @@ public class MapUpdater extends Thread{
                 cleardead();
                 eatDay();
                 cleardead();
+                copulateDay();
+                cleardead();
                 System.out.println(day+" day " + speciesInt());
                 day++;
                 if(day == 365){
@@ -81,6 +82,9 @@ public class MapUpdater extends Thread{
 
         }
     };
+
+
+
     public void setPlant(){
         ArrayList<String> plant = new ArrayList<>();
         plant.add("grass");
@@ -100,6 +104,20 @@ public class MapUpdater extends Thread{
                     break;
                 } else {
                     speciesList.get(n).eat(speciesList);
+                    n++;
+                }
+            }
+        }
+    }}
+    public void copulateDay(){for (int i = 0; i < gridSize; i++) {
+        for (int j = 0; j < gridSize; j++) {
+            List<Species> speciesList = map[i][j].getAllSpecies();
+            int n = 0;
+            while (speciesList.size() != 0) {
+                if (speciesList.size() == n) {
+                    break;
+                } else {
+                    speciesList.get(n).copulate(speciesList);
                     n++;
                 }
             }
