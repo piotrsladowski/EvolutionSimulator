@@ -1,5 +1,5 @@
 [General]
-gridSize = 45
+gridSize = 100
 percentageOfPlants = 50
 percentageOfAnimals = 50
 ver=1.0
@@ -11,7 +11,7 @@ ver2=2.0
     name = lion
     speed = 20
     food_type = meat_eater
-    percentageOfTotal = 4
+    percentageOfTotal = 1
     vitality = 700
 </Lion>
 
@@ -19,7 +19,7 @@ ver2=2.0
     name = cow
     speed = 20
     food_type = herbivore
-    percentageOfTotal = 50
+    percentageOfTotal = 30
     vitality = 900
 </Cow>
 

@@ -89,7 +89,7 @@ public class MapUpdater extends Thread{
         ArrayList<String> plant = new ArrayList<>();
         plant.add("grass");
         plant.add("potato");
-        for (int i =0; i<3; i++) {
+        for (int i =0; i<50; i++) {
             int type = random.nextInt(2);
             int x = random.nextInt(gridSize);
             int y = random.nextInt(gridSize);
