@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleCell {
-    private List<Species> speciesList = new ArrayList<>();
+    private final List<Species> speciesList = new ArrayList<>();
 
     public void addSpeciesStartup(Species species){
         this.speciesList.add(species);

@@ -1,6 +1,7 @@
 package evolutionSimulator.Models.Logic;
 
 import evolutionSimulator.Controllers.GUIUpdater;
+import evolutionSimulator.Controllers.MyLogger;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Models.Species.Plant;
 import evolutionSimulator.Models.Species.Species;
@@ -9,14 +10,14 @@ import javafx.concurrent.Task;
 import java.util.*;
 
 public class MapUpdater extends Thread{
-    private SingleCell[][] map;
-    private int gridSize;
-    private GUIUpdater guiUpdater;
+    private final SingleCell[][] map;
+    private final int gridSize;
+    private final GUIUpdater guiUpdater;
     private int day;
-    private Properties properties;
-    private Object pauseLock;
-    private volatile boolean paused = false;
-    private Random random = new Random();
+    private final Properties properties;
+    private final Object pauseLock;
+    private final Random random = new Random();
+    private int refreshTime;
 
     public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties, Object pauseLock) {
         this.map = map;
@@ -35,16 +36,26 @@ public class MapUpdater extends Thread{
          * management etc, which may or may not be a problem for you).
          * https://stackoverflow.com/questions/14897194/stop-threads-before-close-my-javafx-program
          **/
-        //new Thread(task).start();
     }
 
-    Task task = new Task<Void>() {
+    final Task task = new Task<Void>() {
         @Override
         protected Void call() {
             return null;
         }
 
         @Override public void run() {
+            // Log info about generated map
+            int numOfNotEmptyCells = 0;
+            for (int i = 0; i < gridSize; i++) {
+                for (int j = 0; j < gridSize; j++) {
+                    if(map[i][j].hasAnySpecies()){
+                        numOfNotEmptyCells++;
+                    }
+                }
+            }
+            MyLogger.newLogInfo("Map size: " + gridSize);
+            MyLogger.newLogInfo("Not empty cells: " + numOfNotEmptyCells);
             while (true) {
                 if(properties.getProperty("paused").equals("true")) {
                     try {
@@ -66,10 +77,9 @@ public class MapUpdater extends Thread{
                     eatDay();
                 }
                 clearDead();
-                setPlant();
-                moveDay();
-                eatDay();
-                copulateDay();
+                if(properties.getProperty("procreationEnabled").equals("true")){
+                    copulateDay();
+                }
                 clearDead();
                 System.out.println(day+" day " + speciesInt());
                 day++;
@@ -80,9 +90,9 @@ public class MapUpdater extends Thread{
                 }
                 properties.setProperty("day", String.valueOf(day));
                 guiUpdater.update(map);
-                System.out.println(day);
+                refreshTime = Integer.parseInt(properties.getProperty("refreshTime"));
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(refreshTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -160,14 +170,14 @@ public class MapUpdater extends Thread{
         }
     }}
     public int speciesInt(){
-        int ilosc = 0;
+        int amount = 0;
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 List<Species> speciesList = map[i][j].getAllSpecies();
-                ilosc += speciesList.size();
+                amount += speciesList.size();
                 }
             }
-        return ilosc;
+        return amount;
         }
 }
 

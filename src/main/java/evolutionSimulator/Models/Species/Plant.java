@@ -2,26 +2,25 @@ package evolutionSimulator.Models.Species;
 
 import evolutionSimulator.Models.SingleCell;
 
-import javax.swing.*;
 import java.util.List;
 
 public class Plant implements Species{
-    private int ID;
-    private String name;
+    private final int ID;
+    private final String name;
     private int vitality = 100;
     private boolean ate = false;
-    private boolean pregned;
+    private boolean pregnant;
     public Plant(int ID, String name) {
         this.ID = ID;
         this.name = name;
     }
     @Override
-    public boolean isPregned() {
-        return pregned;
+    public boolean isPregnant() {
+        return pregnant;
     }
     @Override
-    public void setPregned(boolean pregned) {
-        this.pregned = pregned;
+    public void setPregnant(boolean pregnant) {
+        this.pregnant = pregnant;
     }
     @Override
     public boolean isAte() {
@@ -72,7 +71,7 @@ public class Plant implements Species{
 
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {
-        if (this.vitality <= 0 || this.ate == true) {
+        if (this.vitality <= 0 || this.ate) {
             map[x][y].delete(this);
             return 0;
         }

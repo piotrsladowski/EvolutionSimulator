@@ -10,9 +10,8 @@ import javafx.scene.layout.VBox;
 
 public class ZoomableScrollPane extends ScrollPane {
     private double scaleValue = 0.7; //0.7
-    private double zoomIntensity = 0.02;
-    private Node target;
-    private Node zoomNode;
+    private final Node target;
+    private final Node zoomNode;
 
     public ZoomableScrollPane(Node target) {
         super();
@@ -50,6 +49,7 @@ public class ZoomableScrollPane extends ScrollPane {
     }
 
     private void onScroll(double wheelDelta, Point2D mousePoint) {
+        double zoomIntensity = 0.02;
         double zoomFactor = Math.exp(wheelDelta * zoomIntensity);
 
         Bounds innerBounds = zoomNode.getLayoutBounds();

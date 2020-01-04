@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigFile {
-    private String fileName;
-    Map<String, String> generalProperties = new HashMap<String, String>();
-    Map<String, Map<String, String>> animalsList = new HashMap<String, Map<String, String>>();
-    Map<String, Map<String, String>> plantsList = new HashMap<String, Map<String, String>>();
-    private List<String[]> validAnimals = new ArrayList<String[]>();
-    private List<String[]> validPlants = new ArrayList<String[]>();
+    private final String fileName;
+    final Map<String, String> generalProperties = new HashMap<>();
+    final Map<String, Map<String, String>> animalsList = new HashMap<>();
+    final Map<String, Map<String, String>> plantsList = new HashMap<>();
+    private final List<String[]> validAnimals = new ArrayList<>();
+    private final List<String[]> validPlants = new ArrayList<>();
     private int ID;
     public ConfigFile(String fileName) {
         this.fileName = fileName;
@@ -33,7 +33,7 @@ public class ConfigFile {
     }
 
     public void load() throws IOException {
-        List<String> usefulLines = new ArrayList<String>();
+        List<String> usefulLines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
             while (line != null) {
@@ -84,7 +84,7 @@ public class ConfigFile {
                     String animalClassName = line.substring(1, line.length() - 1);
                     endSingleAnimalDeclaration = usefulLines.indexOf("</" + animalClassName + ">");//TODO catch if end tag hasn't been found
                     List<String> sublist = usefulLines.subList(i + 1, endSingleAnimalDeclaration);
-                    Map<String, String> singleSpecies = readSingleSpecies(animalClassName, sublist);
+                    Map<String, String> singleSpecies = readSingleSpecies(sublist);
                     if(checkAnimalMandatoryProperties(animalClassName, singleSpecies)){
                         animalsList.put(animalClassName, singleSpecies);
                         //System.out.println(animalClassName + " added animal");
@@ -107,7 +107,7 @@ public class ConfigFile {
                     String plantClassName = line.substring(1, line.length() - 1);
                     endSinglePlantDeclaration = usefulLines.indexOf("</" + plantClassName + ">");//TODO catch if end tag hasn't been found
                     List<String> sublist = usefulLines.subList(i + 1, endSinglePlantDeclaration);
-                    Map<String, String> singleSpecies = readSingleSpecies(plantClassName, sublist);// parse all properties of single species
+                    Map<String, String> singleSpecies = readSingleSpecies(sublist);// parse all properties of single species
                     if(checkPlantMandatoryProperties(plantClassName, singleSpecies)){// don't add if not all mandatory properties were specified
                         plantsList.put(plantClassName, singleSpecies);
                         //System.out.println(plantClassName + " added");
@@ -119,8 +119,8 @@ public class ConfigFile {
         //endregion
     }
 
-    private Map<String, String> readSingleSpecies(String speciesClassName, List<String> singleSpeciesProperties) {
-        Map<String, String> singleSpeciesPropertiesMap = new HashMap<String, String>();
+    private Map<String, String> readSingleSpecies(List<String> singleSpeciesProperties) {
+        Map<String, String> singleSpeciesPropertiesMap = new HashMap<>();
         for (String item : singleSpeciesProperties) {
             String[] parts = item.split("=", 2);
             // remove whitespaces before '=' char
@@ -175,7 +175,6 @@ public class ConfigFile {
         for (Map.Entry<String, Map<String, String>> entry : animalsList.entrySet()) {
             String[] newAnimal = new String[10];
 
-            String key = entry.getKey();
             Map<String, String> value = entry.getValue();
             newAnimal[0] = String.valueOf(ID);
             newAnimal[2] = value.get("name");

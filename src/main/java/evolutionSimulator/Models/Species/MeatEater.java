@@ -7,24 +7,24 @@ import java.util.List;
 import java.util.Random;
 
 public class MeatEater implements Species {
-    private int ID;
-    private int speed;
-    private String name;
+    private final int ID;
+    private final int speed;
+    private final String name;
     private int vitality;
     private int intMove;
     private boolean been;
     private boolean ate = false;
-    private boolean pregned;
-    private Random generator = new Random();
-    private ArrayList<String> eatLis = new ArrayList<String>();
-    public MeatEater(int ID, String name, int speed, int vitality, boolean been, boolean pregned) {
+    private boolean pregnant;
+    private final Random generator = new Random();
+    private final ArrayList<String> eatLis = new ArrayList<>();
+    public MeatEater(int ID, String name, int speed, int vitality, boolean been, boolean pregnant) {
         this.ID = ID;
         this.speed = speed;
         this.name = name;
         this.vitality = vitality;
         this.intMove = speed;
         this.been = been;
-        this.pregned = pregned;
+        this.pregnant = pregnant;
         this.eatLis.add("bear");
         this.eatLis.add("cow");
         this.eatLis.add("pig");
@@ -32,7 +32,7 @@ public class MeatEater implements Species {
 
     @Override
     public void move(SingleCell[][] map, int x, int y, int size) {
-        if (this.been == true) {
+        if (this.been) {
             int deltaX = 0;
             int deltaY = 0;
             while (this.intMove > 0) {
@@ -83,17 +83,17 @@ public class MeatEater implements Species {
 
     @Override
     public void copulate(List<Species> speciesList) {
-        if (this.pregned == false) {
+        if (!this.pregnant) {
             for (Species species : speciesList) {
-                if (species.getName() == this.name && species.isPregned()==false && species != this) {
+                if (species.getName().equals(this.name) && !species.isPregnant() && species != this) {
                     int newV = this.vitality/2;
                     int newVP = species.getVitality()/2;
                     MeatEater child = new MeatEater(this.ID,this.name,this.speed,newV+newVP,true,true);
                     this.vitality=newV;
                     species.setVitality(newVP);
                     speciesList.add(child);
-                    this.pregned=true;
-                    species.setPregned(true);
+                    this.pregnant =true;
+                    species.setPregnant(true);
                     break;
                 }
             }
@@ -104,9 +104,9 @@ public class MeatEater implements Species {
 
     @Override
     public void eat(List<Species> speciesList){
-        if (this.ate == false) {
+        if (!this.ate) {
         for (Species species : speciesList) {
-            if (eatLis.contains(species.getName()) && species.isAte() == false && species != this) {
+            if (eatLis.contains(species.getName()) && !species.isAte() && species != this) {
                 this.vitality = this.vitality + species.getVitality();
                 species.setVitality(0);
                 species.setAte(true);
@@ -117,12 +117,12 @@ public class MeatEater implements Species {
     }
 }
     @Override
-    public boolean isPregned() {
-        return pregned;
+    public boolean isPregnant() {
+        return pregnant;
     }
     @Override
-    public void setPregned(boolean pregned) {
-        this.pregned = pregned;
+    public void setPregnant(boolean pregnant) {
+        this.pregnant = pregnant;
     }
 
     @Override
@@ -161,13 +161,13 @@ public class MeatEater implements Species {
 
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {
-        if (this.vitality <= 0 || this.ate == true) {
+        if (this.vitality <= 0 || this.ate) {
             map[x][y].delete(this);
             return 0;
         }
         else {
             this.been = true;
-            this.pregned = false;
+            this.pregnant = false;
             return 1;
         }
     }

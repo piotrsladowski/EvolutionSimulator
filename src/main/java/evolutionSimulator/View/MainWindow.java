@@ -15,16 +15,16 @@ import javafx.stage.Stage;
 import java.util.*;
 
 public class MainWindow {
-    private Stage stage;
+    private final Stage stage;
     private static int gridSize;
     public static CellGUI[][] cellGUIArray;
     private StackPane[][] stackPanes;
-    private GridPane mainGrid = new GridPane();
-    private SingleCell[][] map;
-    private Map<String, ImagePattern> iconsList = new HashMap<>();
-    private Object pauseLock;
+    private final GridPane mainGrid = new GridPane();
+    private final SingleCell[][] map;
+    private final Map<String, ImagePattern> iconsList = new HashMap<>();
+    private final Object pauseLock;
 
-    private Properties properties;
+    private final Properties properties;
 
     public MainWindow(Stage stage, int gridSize, SingleCell[][] map, Properties properties, Object pauseLock){
         this.stage = stage;

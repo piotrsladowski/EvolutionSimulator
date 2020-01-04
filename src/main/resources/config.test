@@ -26,7 +26,6 @@ ver2=2.0
 <Pig>
     name = pig
     speed = 40
-    wiek = 32
     food_type = omnivore
     percentageOfTotal = 23
     vitality = 50

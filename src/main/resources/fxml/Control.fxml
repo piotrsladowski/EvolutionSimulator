@@ -4,72 +4,74 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="evolutionSimulator.Controllers.ControlWindow">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="evolutionSimulator.Controllers.ControlWindow">
    <HBox alignment="CENTER" prefHeight="20.0">
       <Label alignment="CENTER_RIGHT" text="Year:">
          <padding>
-            <Insets right="10.0"/>
+            <Insets right="10.0" />
          </padding>
       </Label>
       <Label fx:id="yearNumber" text="wait...">
          <padding>
-            <Insets left="10.0"/>
+            <Insets left="10.0" />
          </padding>
       </Label>
    </HBox>
    <HBox alignment="CENTER" prefHeight="20.0">
       <Label alignment="CENTER_RIGHT" text="Day:">
          <padding>
-            <Insets right="10.0"/>
+            <Insets right="10.0" />
          </padding>
       </Label>
       <Label fx:id="dayNumber" text="wait...">
          <padding>
-            <Insets left="10.0"/>
+            <Insets left="10.0" />
          </padding>
       </Label>
    </HBox>
    <HBox alignment="CENTER" prefHeight="40.0">
-      <Button fx:id="pause_button" mnemonicParsing="false" onAction="#pauseButtonHandle" text="Pause"/>
-      <Button fx:id="resume_button" mnemonicParsing="false" onAction="#resumeButtonHandle" text="Resume"/>
-      <Button fx:id="nextDay_button" mnemonicParsing="false" onAction="#nextDayButtonHandle" text="Next day"/>
+      <Button fx:id="pause_button" mnemonicParsing="false" onAction="#pauseButtonHandle" text="Pause" />
+      <Button fx:id="resume_button" mnemonicParsing="false" onAction="#resumeButtonHandle" text="Resume" />
+      <Button fx:id="nextDay_button" mnemonicParsing="false" onAction="#nextDayButtonHandle" text="Next day" />
    </HBox>
    <HBox alignment="CENTER" prefHeight="50.0">
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <Label layoutX="25.0" layoutY="3.0" text="Plant spawning"/>
-         <Button fx:id="plantSpawnStart_button" layoutX="15.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#plantSpawnStartButtonHandle" text="Start"/>
-         <Button fx:id="plantSpawnStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#plantSpawnStopButtonHandle" text="Stop"/>
+         <Label layoutX="25.0" layoutY="3.0" text="Plant spawning" />
+         <Button fx:id="plantSpawnStart_button" layoutX="15.0" layoutY="23.0" mnemonicParsing="false" onAction="#plantSpawnStartButtonHandle" text="Start" />
+         <Button fx:id="plantSpawnStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#plantSpawnStopButtonHandle" text="Stop" />
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <Label layoutX="40.0" layoutY="3.0" text="Procreation"/>
-         <Button fx:id="procreationStart_button" layoutX="19.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#procreationStartButtonHandle" text="Start"/>
-         <Button fx:id="procreationStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#procreationStopButtonHandle" text="Stop"/>
+         <Label layoutX="40.0" layoutY="3.0" text="Procreation" />
+         <Button fx:id="procreationStart_button" layoutX="19.0" layoutY="23.0" mnemonicParsing="false" onAction="#procreationStartButtonHandle" text="Start" />
+         <Button fx:id="procreationStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#procreationStopButtonHandle" text="Stop" />
       </AnchorPane>
    </HBox>
    <HBox alignment="CENTER" prefHeight="50.0">
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <Label layoutX="50.0" layoutY="3.0" text="Eating"/>
-         <Button fx:id="eatStart_button" layoutX="15.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#eatStartButtonHandle" text="Start"/>
-         <Button fx:id="eatStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#eatStopButtonHandle" text="Stop"/>
+         <Label layoutX="50.0" layoutY="3.0" text="Eating" />
+         <Button fx:id="eatStart_button" layoutX="15.0" layoutY="23.0" mnemonicParsing="false" onAction="#eatStartButtonHandle" text="Start" />
+         <Button fx:id="eatStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#eatStopButtonHandle" text="Stop" />
       </AnchorPane>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <Label layoutX="50.0" layoutY="3.0" text="Motion"/>
-         <Button fx:id="motionStart_button" layoutX="19.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#motionStartButtonHandle" text="Start"/>
-         <Button fx:id="motionStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false"
-                 onAction="#motionStopButtonHandle" text="Stop"/>
+         <Label layoutX="50.0" layoutY="3.0" text="Motion" />
+         <Button fx:id="motionStart_button" layoutX="19.0" layoutY="23.0" mnemonicParsing="false" onAction="#motionStartButtonHandle" text="Start" />
+         <Button fx:id="motionStop_button" layoutX="75.0" layoutY="23.0" mnemonicParsing="false" onAction="#motionStopButtonHandle" text="Stop" />
       </AnchorPane>
    </HBox>
    <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
-      <Button fx:id="removeAllPlants_button" mnemonicParsing="false" onAction="#removePlantsButtonHandle"
-              text="Remove all plants from map"/>
+      <Button fx:id="removeAllPlants_button" mnemonicParsing="false" onAction="#removePlantsButtonHandle" text="Remove all plants from map" />
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0">
+      <Label text="Refresh time (milisec): ">
+         <HBox.margin>
+            <Insets right="5.0"/>
+         </HBox.margin>
+      </Label>
+      <TextField fx:id="refreshTime_textField" prefWidth="80.0"/>
+      <Button fx:id="refreshTime_button" mnemonicParsing="false" onAction="#refreshTimeButtonHandle" text="Set">
+         <HBox.margin>
+            <Insets left="10.0"/>
+         </HBox.margin>
+      </Button>
    </HBox>
 </VBox>

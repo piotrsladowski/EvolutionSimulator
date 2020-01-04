@@ -2,7 +2,6 @@ package evolutionSimulator.View;
 
 import evolutionSimulator.Controllers.ControlWindow;
 import evolutionSimulator.Controllers.MyLogger;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,22 +9,20 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MyMenuBar {
-    private Stage parentStage;
+    private final Stage parentStage;
     private Stage aboutStage = null;
     private Stage controlStage = null;
-    private Properties properties;
-    private Object pauseLock;
+    private final Properties properties;
+    private final Object pauseLock;
 
     public MyMenuBar(Stage parentStage, Properties properties, Object pauseLock) {
         this.parentStage = parentStage;
@@ -41,7 +38,7 @@ public class MyMenuBar {
                     controlStage = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("/fxml/Control.fxml"));
-                    Parent root = (Parent)fxmlLoader.load();
+                    Parent root = fxmlLoader.load();
                     fxmlLoader.<ControlWindow>getController().setProperties(properties);
                     fxmlLoader.<ControlWindow>getController().setPauseLock(pauseLock);
                     //fxmlLoader.setController(new ControlWindow(properties));
@@ -49,12 +46,7 @@ public class MyMenuBar {
                     controlStage.setTitle("Control");
                     controlStage.setScene(controlScene);
                     controlStage.initOwner(parentStage);
-                    controlStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                        @Override
-                        public void handle(WindowEvent event) {
-                            controlStage = null;
-                        }
-                    });
+                    controlStage.setOnCloseRequest(event1 -> controlStage = null);
                     controlStage.show();
                 }
                 else {

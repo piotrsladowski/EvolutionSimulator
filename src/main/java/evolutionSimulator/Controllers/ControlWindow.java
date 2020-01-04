@@ -1,12 +1,18 @@
 package evolutionSimulator.Controllers;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class ControlWindow extends Thread{
     private Properties properties;
@@ -67,6 +73,12 @@ public class ControlWindow extends Thread{
     @FXML
     private Button motionStop_button;
 
+    @FXML
+    private Button refreshTime_button;
+
+    @FXML
+    private TextField refreshTime_textField;
+
     //endregion
 
     @FXML
@@ -81,6 +93,20 @@ public class ControlWindow extends Thread{
             procreationEnabled = Boolean.parseBoolean(properties.getProperty("procreationEnabled"));
             eatingEnabled = Boolean.parseBoolean(properties.getProperty("eatingEnabled"));
             motionEnabled = Boolean.parseBoolean(properties.getProperty("motionEnabled"));
+            refreshTime_textField.setText(properties.getProperty("refreshTime"));
+
+            refreshTime_textField.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                    if(Pattern.matches("^[0-9]+$", newValue)) {
+                        refreshTime_button.setDisable(false);
+                    } else {
+                        refreshTime_button.setDisable(true);
+                    }
+
+                }
+            });
+
             task.valueProperty().addListener((dayNum, oldValue, newValue) -> {
                 if(newValue != null) {
                     dayNumber.setText(String.valueOf(newValue));
@@ -94,10 +120,11 @@ public class ControlWindow extends Thread{
 
     }
 
-    Task<Integer> task = new Task<Integer>() {
+    final Task<Integer> task = new Task<>() {
         @Override
         protected Integer call() throws Exception {
             for (int i = 0; i < 32000; i++) {
+
                 dayNum = Integer.parseInt(properties.getProperty("day"));
                 yearNum = Integer.parseInt(properties.getProperty("year"));
                 updateValue(dayNum);
@@ -108,7 +135,7 @@ public class ControlWindow extends Thread{
     };
 
     @FXML
-    public void pauseButtonHandle(ActionEvent actionEvent) throws InterruptedException {
+    public void pauseButtonHandle() {
         paused = true;
         properties.setProperty("paused", "true");
         setButtons();
@@ -159,7 +186,7 @@ public class ControlWindow extends Thread{
         }
     }
 
-    public void resumeButtonHandle(ActionEvent actionEvent) {
+    public void resumeButtonHandle() {
         synchronized (pauseLock){
             pauseLock.notify();
         }
@@ -168,63 +195,69 @@ public class ControlWindow extends Thread{
         setButtons();
     }
 
-    public void nextDayButtonHandle(ActionEvent actionEvent) {
+    public void nextDayButtonHandle() {
         synchronized (pauseLock){
             pauseLock.notify();
         }
         properties.setProperty("paused", "true");
     }
 
-    public void plantSpawnStartButtonHandle(ActionEvent actionEvent) {
+    public void plantSpawnStartButtonHandle() {
         spawnPlants = true;
         properties.setProperty("spawnPlants", "true");
         setButtons();
     }
 
-    public void plantSpawnStopButtonHandle(ActionEvent actionEvent) {
+    public void plantSpawnStopButtonHandle() {
         spawnPlants = false;
         properties.setProperty("spawnPlants", "false");
         setButtons();
     }
 
-    public void procreationStartButtonHandle(ActionEvent actionEvent) {
+    public void procreationStartButtonHandle() {
         procreationEnabled = true;
         properties.setProperty("procreationEnabled", "true");
         setButtons();
     }
 
-    public void procreationStopButtonHandle(ActionEvent actionEvent) {
+    public void procreationStopButtonHandle() {
         procreationEnabled = false;
         properties.setProperty("procreationEnabled", "false");
         setButtons();
     }
 
-    public void eatStartButtonHandle(ActionEvent actionEvent) {
+    public void eatStartButtonHandle() {
         eatingEnabled = true;
         properties.setProperty("eatingEnabled", "true");
         setButtons();
     }
 
-    public void eatStopButtonHandle(ActionEvent actionEvent) {
+    public void eatStopButtonHandle() {
         eatingEnabled = false;
         properties.setProperty("eatingEnabled", "false");
         setButtons();
     }
 
-    public void motionStartButtonHandle(ActionEvent actionEvent) {
+    public void motionStartButtonHandle() {
         motionEnabled = true;
         properties.setProperty("motionEnabled", "true");
         setButtons();
     }
 
-    public void motionStopButtonHandle(ActionEvent actionEvent) {
+    public void motionStopButtonHandle() {
         motionEnabled = false;
         properties.setProperty("motionEnabled", "false");
         setButtons();
     }
 
-    public void removePlantsButtonHandle(ActionEvent actionEvent) {
+    public void removePlantsButtonHandle() {
 
     }
+
+
+    public void refreshTimeButtonHandle() {
+        properties.setProperty("refreshTime", refreshTime_textField.getText());
+    }
+
 }
 

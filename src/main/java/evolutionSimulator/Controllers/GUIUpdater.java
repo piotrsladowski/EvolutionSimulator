@@ -9,8 +9,8 @@ import javafx.scene.paint.ImagePattern;
 import java.util.Map;
 
 public class GUIUpdater {
-    Map<String, ImagePattern> iconsList;
-    private int gridSize;
+    final Map<String, ImagePattern> iconsList;
+    private final int gridSize;
     //private SingleCell[][] map;
 
     public GUIUpdater(Map<String, ImagePattern> iconsList, int gridSize) {

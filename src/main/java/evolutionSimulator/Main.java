@@ -30,6 +30,7 @@ public class Main extends Application {
         final Object pauseLock = new Object();
         properties.setProperty("year", "0");
         properties.setProperty("day", "1");
+        properties.setProperty("refreshTime", "1000");
 
         //TODO add to config file
         properties.setProperty("paused", "false");

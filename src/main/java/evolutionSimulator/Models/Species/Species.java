@@ -13,8 +13,8 @@ public interface Species {
     void eat(List<Species> speciesList);
     int getID();
     String getName();
-    boolean isPregned();
-    void setPregned(boolean pregned);
+    boolean isPregnant();
+    void setPregnant(boolean pregnant);
     int getSpeed();
     int getVitality();
     void setVitality(int vitality);

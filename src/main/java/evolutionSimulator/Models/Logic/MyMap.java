@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Random;
 
 public class MyMap {
-    private int gridSize;
-    private SingleCell[][] map;
-    private List<int[]> freeCells = new ArrayList<>();
+    private final int gridSize;
+    private final SingleCell[][] map;
+    private final List<int[]> freeCells = new ArrayList<>();
 
     public MyMap(int gridSize) {
         this.gridSize = gridSize;
@@ -78,7 +78,6 @@ public class MyMap {
                 Plant p = new Plant(ID, name);
                 //TODO set values
                 sc.addSpeciesStartup(p);
-                //sc.setPlant(p);
                 map[cords[0]][cords[1]] = sc;
             }
         }

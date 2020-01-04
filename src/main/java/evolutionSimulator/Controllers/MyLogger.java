@@ -9,7 +9,7 @@ import java.util.logging.SimpleFormatter;
 
 public class MyLogger extends Logger {
     private static Logger logger;
-    private static FileHandler fileHandler;
+
     /**
      * Protected method to construct a logger for a named subsystem.
      * <p>
@@ -30,7 +30,7 @@ public class MyLogger extends Logger {
     public MyLogger(String name, String resourceBundleName) throws IOException {
         super(name, resourceBundleName);
         logger = MyLogger.getLogger(MyLogger.class.getName());
-        fileHandler = new FileHandler("log.log", true);
+        FileHandler fileHandler = new FileHandler("log.log", true);
         fileHandler.setFormatter(new SimpleFormatter());
         logger.addHandler(fileHandler);
     }
