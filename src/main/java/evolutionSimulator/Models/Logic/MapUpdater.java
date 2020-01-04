@@ -66,6 +66,11 @@ public class MapUpdater extends Thread{
                     eatDay();
                 }
                 clearDead();
+                setPlant();
+                moveDay();
+                eatDay();
+                copulateDay();
+                clearDead();
                 System.out.println(day+" day " + speciesInt());
                 day++;
                 if(day == 365){
@@ -75,8 +80,9 @@ public class MapUpdater extends Thread{
                 }
                 properties.setProperty("day", String.valueOf(day));
                 guiUpdater.update(map);
+                System.out.println(day);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -84,7 +90,6 @@ public class MapUpdater extends Thread{
 
         }
     };
-
     public void setPlant(){
         ArrayList<String> plant = new ArrayList<>();
         plant.add("grass");
@@ -94,8 +99,7 @@ public class MapUpdater extends Thread{
             int x = random.nextInt(gridSize);
             int y = random.nextInt(gridSize);
             map[x][y].addSpeciesStartup(new Plant(1, plant.get(type)));
-        }}
-
+    }}
     public void eatDay(){for (int i = 0; i < gridSize; i++) {
         for (int j = 0; j < gridSize; j++) {
             List<Species> speciesList = map[i][j].getAllSpecies();
@@ -110,7 +114,6 @@ public class MapUpdater extends Thread{
             }
         }
     }}
-
     public void moveDay(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
@@ -142,17 +145,15 @@ public class MapUpdater extends Thread{
             }
         }
     }
-
     public int speciesInt(){
         int ilosc = 0;
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 List<Species> speciesList = map[i][j].getAllSpecies();
                 ilosc += speciesList.size();
+                }
             }
-        }
         return ilosc;
-    }
-
+        }
 }
 
