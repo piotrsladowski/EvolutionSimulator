@@ -82,7 +82,7 @@ public class MapUpdater extends Thread{
                 guiUpdater.update(map);
                 System.out.println(day);
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -145,6 +145,20 @@ public class MapUpdater extends Thread{
             }
         }
     }
+    public void copulateDay(){for (int i = 0; i < gridSize; i++) {
+        for (int j = 0; j < gridSize; j++) {
+            List<Species> speciesList = map[i][j].getAllSpecies();
+            int n = 0;
+            while (speciesList.size() != 0) {
+                if (speciesList.size() == n) {
+                    break;
+                } else {
+                    speciesList.get(n).copulate(speciesList);
+                    n++;
+                }
+            }
+        }
+    }}
     public int speciesInt(){
         int ilosc = 0;
         for (int i = 0; i < gridSize; i++) {
