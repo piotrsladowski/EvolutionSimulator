@@ -16,7 +16,6 @@ public class Omnivore implements Species {
     private boolean ate = false;
     private boolean pregnant;
     private final Random generator = new Random();
-    private final ArrayList<String> eatLis = new ArrayList<>();
     public Omnivore(int ID, String name, int speed, int vitality, boolean been, boolean pregnant) {
         this.ID = ID;
         this.speed = speed;
@@ -25,10 +24,6 @@ public class Omnivore implements Species {
         this.intMove = speed;
         this.been = been;
         this.pregnant = pregnant;
-        this.eatLis.add("potato");
-        this.eatLis.add("grass");
-        this.eatLis.add("cow");
-        this.eatLis.add("lion");
     }
 
     @Override
@@ -80,7 +75,7 @@ public class Omnivore implements Species {
             map[x + deltaX][y + deltaY].getAllSpecies().add(copy_this);
             this.vitality = 0;
         }
-        
+
     }
 
     @Override
@@ -108,7 +103,8 @@ public class Omnivore implements Species {
     public void eat(List<Species> speciesList){
         if (!this.ate) {
             for (Species species : speciesList) {
-                if (eatLis.contains(species.getName()) && !species.isAte() && species != this) {
+                // Omnivore eats everything, so we don't have to check class name
+                if (!species.isAte() && species != this){
                     this.vitality = this.vitality + species.getVitality();
                     species.setVitality(0);
                     species.setAte(true);

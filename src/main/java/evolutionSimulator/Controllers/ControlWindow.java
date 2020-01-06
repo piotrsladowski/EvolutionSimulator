@@ -4,12 +4,10 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -89,7 +87,7 @@ public class ControlWindow extends Thread{
         //new Thread(task).start();
         Platform.runLater((() -> {
             paused = Boolean.parseBoolean(properties.getProperty("paused"));
-            spawnPlants = Boolean.parseBoolean(properties.getProperty("plantsPaused"));
+            spawnPlants = Boolean.parseBoolean(properties.getProperty("spawnPlants"));
             procreationEnabled = Boolean.parseBoolean(properties.getProperty("procreationEnabled"));
             eatingEnabled = Boolean.parseBoolean(properties.getProperty("eatingEnabled"));
             motionEnabled = Boolean.parseBoolean(properties.getProperty("motionEnabled"));
@@ -98,7 +96,8 @@ public class ControlWindow extends Thread{
             refreshTime_textField.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                    if(Pattern.matches("^[0-9]+$", newValue)) {
+                    //allow only 9 digits to prevent int overflow
+                    if(Pattern.matches("^[0-9]{0,9}+$", newValue)) {
                         refreshTime_button.setDisable(false);
                     } else {
                         refreshTime_button.setDisable(true);
