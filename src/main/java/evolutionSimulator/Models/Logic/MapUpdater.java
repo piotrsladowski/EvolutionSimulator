@@ -18,14 +18,16 @@ public class MapUpdater extends Thread{
     private final Object pauseLock;
     private final Random random = new Random();
     private int refreshTime;
+    private List<String[]> readPlants;
 
-    public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties, Object pauseLock) {
+    public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties, Object pauseLock,List<String[]> readPlants) {
         this.map = map;
         this.gridSize = map.length;
         this.guiUpdater = guiUpdater;
         this.properties = properties;
         this.pauseLock = pauseLock;
         this.day = Integer.parseInt(properties.getProperty("day"));
+        this.readPlants = readPlants;
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
@@ -104,11 +106,18 @@ public class MapUpdater extends Thread{
         ArrayList<String> plant = new ArrayList<>();
         plant.add("grass");
         plant.add("potato");
-        for (int i =0; i<3; i++) {
+        int HP = 0;
+        for (int i =0; i<10; i++) {
             int type = random.nextInt(2);
             int x = random.nextInt(gridSize);
             int y = random.nextInt(gridSize);
-            map[x][y].addSpeciesStartup(new Plant(1, plant.get(type)));
+            for (String[] p: readPlants) {
+                if (p[2].equals(plant.get(type))){
+                    HP = Integer.parseInt(p[3]);
+                }
+            }
+            map[x][y].addSpeciesStartup(new Plant(1, plant.get(type), HP));
+            System.out.println("");
     }}
     public void eatDay(){for (int i = 0; i < gridSize; i++) {
         for (int j = 0; j < gridSize; j++) {

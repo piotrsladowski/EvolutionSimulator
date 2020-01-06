@@ -7,12 +7,13 @@ import java.util.List;
 public class Plant implements Species{
     private final int ID;
     private final String name;
-    private int vitality = 100;
+    private int vitality;
     private boolean ate = false;
     private boolean pregnant;
-    public Plant(int ID, String name) {
+    public Plant(int ID, String name, int vitality) {
         this.ID = ID;
         this.name = name;
+        this.vitality = vitality;
     }
     @Override
     public boolean isPregnant() {

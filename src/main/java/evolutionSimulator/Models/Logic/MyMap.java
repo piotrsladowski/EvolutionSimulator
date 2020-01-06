@@ -70,12 +70,13 @@ public class MyMap {
             size = freeCells.size();
             String name = plant[2];
             int ID = Integer.parseInt(plant[0]);
+            int HP = Integer.parseInt(plant[3]);
             for (int i = 0; i < Integer.parseInt(plant[1]); i++) {
                 int index = rand.nextInt(size-i);
                 int[] cords = freeCells.get(index);
                 freeCells.remove(index);
                 SingleCell sc = new SingleCell();
-                Plant p = new Plant(ID, name);
+                Plant p = new Plant(ID, name,HP);
                 //TODO set values
                 sc.addSpeciesStartup(p);
                 map[cords[0]][cords[1]] = sc;
@@ -94,4 +95,5 @@ public class MyMap {
         MyLogger.newLogInfo("Map successfully generated");
         return map;
     }
+
 }

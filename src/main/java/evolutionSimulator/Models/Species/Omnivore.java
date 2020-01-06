@@ -27,8 +27,8 @@ public class Omnivore implements Species {
         this.pregnant = pregnant;
         this.eatLis.add("potato");
         this.eatLis.add("grass");
-        this.eatLis.add("cow");
-        this.eatLis.add("lion");
+        //this.eatLis.add("cow");
+        //this.eatLis.add("lion");
     }
 
     @Override

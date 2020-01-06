@@ -48,7 +48,7 @@ public class Main extends Application {
 
         // give control to the Logic function
         GUIUpdater guiUpdater = new GUIUpdater(iconsList, gridSize);
-        MapUpdater mapUpdater = new MapUpdater(map, guiUpdater, properties, pauseLock);
+        MapUpdater mapUpdater = new MapUpdater(map, guiUpdater, properties, pauseLock,readPlants);
         mapUpdater.start();
     }
 
