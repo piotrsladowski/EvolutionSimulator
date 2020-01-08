@@ -117,7 +117,7 @@ public class MainWindow {
                         TableColumn<Species, String> column2 = new TableColumn<>("Vitality");
                         column2.setCellValueFactory(new PropertyValueFactory<>("vitality"));
                         TableColumn<Species, String> column3 = new TableColumn<>("Speed");
-                        column2.setCellValueFactory(new PropertyValueFactory<>("speed"));
+                        column3.setCellValueFactory(new PropertyValueFactory<>("speed"));
                         table.getColumns().add(column1);
                         table.getColumns().add(column2);
                         table.getColumns().add(column3);
