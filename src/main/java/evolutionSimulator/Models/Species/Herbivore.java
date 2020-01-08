@@ -101,15 +101,17 @@ public class Herbivore implements Species {
     @Override
     public void eat(List<Species> speciesList){
         if (!this.ate) {
+            if (this.vitality < 1000) {
             for (Species species : speciesList) {
                 if (species.getClass().getName().equals("evolutionSimulator.Models.Species.Plant") && !species.isAte() && (species != this)){
                         this.vitality = this.vitality + species.getVitality();
                         species.setVitality(0);
                         species.setAte(true);
                         break;
+                    }
                 }
             }
-        }
+            }
     }
     @Override
     public boolean isPregnant() {

@@ -118,21 +118,24 @@ public class MapUpdater extends Thread{
             }
             map[x][y].addSpeciesStartup(new Plant(1, plant.get(type), HP));
             System.out.println("");
-    }}
-    public void eatDay(){for (int i = 0; i < gridSize; i++) {
-        for (int j = 0; j < gridSize; j++) {
-            List<Species> speciesList = map[i][j].getAllSpecies();
-            int n = 0;
-            while (speciesList.size() != 0) {
-                if (speciesList.size() == n) {
-                    break;
-                } else {
-                    speciesList.get(n).eat(speciesList);
-                    n++;
+        }
+    }
+    public void eatDay(){
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                List<Species> speciesList = map[i][j].getAllSpecies();
+                int n = 0;
+                while (speciesList.size() != 0) {
+                    if (speciesList.size() == n) {
+                        break;
+                    } else {
+                        speciesList.get(n).eat(speciesList);
+                        n++;
+                    }
                 }
             }
         }
-    }}
+    }
     public void moveDay(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
@@ -147,7 +150,8 @@ public class MapUpdater extends Thread{
                     }
                 }
             }
-        }}
+        }
+    }
 
     public void clearDead(){
         for (int i = 0; i < gridSize; i++) {
@@ -164,29 +168,50 @@ public class MapUpdater extends Thread{
             }
         }
     }
-    public void copulateDay(){for (int i = 0; i < gridSize; i++) {
-        for (int j = 0; j < gridSize; j++) {
-            List<Species> speciesList = map[i][j].getAllSpecies();
-            int n = 0;
-            while (speciesList.size() != 0) {
-                if (speciesList.size() == n) {
-                    break;
-                } else {
-                    speciesList.get(n).copulate(speciesList);
-                    n++;
+    public void copulateDay(){
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                List<Species> speciesList = map[i][j].getAllSpecies();
+                int n = 0;
+                while (speciesList.size() != 0) {
+                    if (speciesList.size() == n) {
+                        break;
+                    } else {
+                        speciesList.get(n).copulate(speciesList);
+                        n++;
+                    }
                 }
             }
         }
-    }}
+    }
+
+    private void removeAllPlant(){
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                List<Species> speciesList = map[i][j].getAllSpecies();
+                for (Species species : speciesList){
+                   if  (species.getClass().getName().equals("evolutionSimulator.Models.Species.Plant")){
+                       species.setVitality(0);
+                   };
+                }
+            }
+        }
+    }
+
     public int speciesInt(){
         int amount = 0;
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 List<Species> speciesList = map[i][j].getAllSpecies();
-                amount += speciesList.size();
+                for (Species species : speciesList) {
+                    if (!species.getClass().getName().equals("evolutionSimulator.Models.Species.Plant")) {
+                        amount += 1;
+                    }
                 }
+            }
             }
         return amount;
         }
+
 }
 

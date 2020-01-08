@@ -102,13 +102,14 @@ public class Omnivore implements Species {
     @Override
     public void eat(List<Species> speciesList){
         if (!this.ate) {
+            if (this.vitality < 100){
             for (Species species : speciesList) {
                 if (!species.isAte() && species != this) {
                     this.vitality = this.vitality + species.getVitality();
                     species.setVitality(0);
                     species.setAte(true);
                     break;
-
+                }
                 }
             }
         }
