@@ -16,7 +16,6 @@ public class Herbivore implements Species {
     private boolean been;
     private boolean ate = false;
     private boolean pregnant;
-    private final ArrayList<String> eatLis = new ArrayList<>();
     public Herbivore(int ID, String name, int speed, int vitality, boolean been, boolean pregnant) {
         this.ID = ID;
         this.speed = speed;
@@ -25,8 +24,6 @@ public class Herbivore implements Species {
         this.intMove = speed;
         this.been = been;
         this.pregnant = pregnant;
-        this.eatLis.add("potato");
-        this.eatLis.add("grass");
     }
     @Override
     public void move(SingleCell[][] map, int x, int y, int size) {
@@ -105,8 +102,8 @@ public class Herbivore implements Species {
     public void eat(List<Species> speciesList){
         if (!this.ate) {
             if (this.vitality < 1000) {
-                for (Species species : speciesList) {
-                    if (eatLis.contains(species.getName()) && !species.isAte() && species != this) {
+            for (Species species : speciesList) {
+                if (species.getClass().getName().equals("evolutionSimulator.Models.Species.Plant") && !species.isAte() && (species != this)){
                         this.vitality = this.vitality + species.getVitality();
                         species.setVitality(0);
                         species.setAte(true);
