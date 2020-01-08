@@ -11,7 +11,6 @@ import java.util.Map;
 public class GUIUpdater {
     final Map<String, ImagePattern> iconsList;
     private final int gridSize;
-    //private SingleCell[][] map;
 
     public GUIUpdater(Map<String, ImagePattern> iconsList, int gridSize) {
         this.iconsList = iconsList;
@@ -28,7 +27,6 @@ public class GUIUpdater {
                     MainWindow.cellGUIArray[i][j].setOpacity(item.getVitality() * 0.01);
                 }
                 else{
-                    //MainWindow.cellGUIArray[i][j].setFill(null);
                     MainWindow.cellGUIArray[i][j].setFill(Color.YELLOW);
                     MainWindow.cellGUIArray[i][j].setOpacity(1);
                 }

@@ -11,7 +11,6 @@ public interface Species {
     void move(SingleCell[][] map, int x, int y, int size);
     void copulate(List<Species> speciesList);
     void eat(List<Species> speciesList);
-    int getID();
     String getName();
     boolean isPregnant();
     void setPregnant(boolean pregnant);

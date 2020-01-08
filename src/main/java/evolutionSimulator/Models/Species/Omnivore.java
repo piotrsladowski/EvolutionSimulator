@@ -11,23 +11,23 @@ public class Omnivore implements Species {
     private final String name;
     private int vitality;
     private int intMove;
-    private boolean been;
+    private boolean ifMoved;
     private boolean ate = false;
     private boolean pregnant;
     private final Random generator = new Random();
-    public Omnivore(int ID, String name, int speed, int vitality, boolean been, boolean pregnant) {
+    public Omnivore(int ID, String name, int speed, int vitality, boolean ifMoved, boolean pregnant) {
         this.ID = ID;
         this.speed = speed;
         this.name = name;
         this.vitality = vitality;
         this.intMove = speed;
-        this.been = been;
+        this.ifMoved = ifMoved;
         this.pregnant = pregnant;
     }
 
     @Override
     public void move(SingleCell[][] map, int x, int y, int size) {
-        if (this.been) {
+        if (this.ifMoved) {
             int deltaX = 0;
             int deltaY = 0;
             while (this.intMove > 0) {
@@ -130,10 +130,6 @@ public class Omnivore implements Species {
     public void setAte(boolean ate) {
         this.ate = ate;
     }
-    @Override
-    public int getID() {
-        return ID;
-    }
 
     @Override
     public String getName() {
@@ -157,12 +153,15 @@ public class Omnivore implements Species {
 
     @Override
     public int updateVitality(SingleCell[][] map, int x, int y) {
+        if(this.vitality > 1000){
+            this.vitality = 1000;
+        }
         if (this.vitality <= 0 || this.ate) {
             map[x][y].delete(this);
             return 0;
         }
         else {
-            this.been = true;
+            this.ifMoved = true;
             this.pregnant = false;
             return 1;
         }

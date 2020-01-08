@@ -32,18 +32,19 @@ public class MapUpdater extends Thread{
         thread.start();
     }
 
-    final Task task = new Task<Void>() {
+    final Task<Void> task = new Task<>() {
         @Override
         protected Void call() {
             return null;
         }
 
-        @Override public void run() {
+        @Override
+        public void run() {
             // Log info about generated map
             int numOfNotEmptyCells = 0;
             for (int i = 0; i < gridSize; i++) {
                 for (int j = 0; j < gridSize; j++) {
-                    if(map[i][j].hasAnySpecies()){
+                    if (map[i][j].hasAnySpecies()) {
                         numOfNotEmptyCells++;
                     }
                 }
@@ -52,7 +53,7 @@ public class MapUpdater extends Thread{
             MyLogger.newLogInfo("Not empty cells: " + numOfNotEmptyCells);
             //noinspection InfiniteLoopStatement
             while (true) {
-                if(properties.getProperty("paused").equals("true")) {
+                if (properties.getProperty("paused").equals("true")) {
                     try {
                         synchronized (pauseLock) {
                             pauseLock.wait();
@@ -61,29 +62,29 @@ public class MapUpdater extends Thread{
                         MyLogger.newLogSevere("Interrupted thread synchronization");
                     }
                 }
-                if(properties.getProperty("removeAllPlants").equals("true")){
+                if (properties.getProperty("removeAllPlants").equals("true")) {
                     removeAllPlants();
                     properties.setProperty("removeAllPlants", "false");
                     continue;
                 }
-                if(properties.getProperty("spawnPlants").equals("true")) {
+                if (properties.getProperty("spawnPlants").equals("true")) {
                     setPlant();
                 }
-                if(properties.getProperty("motionEnabled").equals("true")){
+                if (properties.getProperty("motionEnabled").equals("true")) {
                     moveDay();
                 }
                 clearDead();
-                if(properties.getProperty("eatingEnabled").equals("true")){
+                if (properties.getProperty("eatingEnabled").equals("true")) {
                     eatDay();
                 }
                 clearDead();
-                if(properties.getProperty("procreationEnabled").equals("true")){
+                if (properties.getProperty("procreationEnabled").equals("true")) {
                     copulateDay();
                 }
                 clearDead();
-                System.out.println(day+" day " + speciesInt());
+                System.out.println(day + " day " + speciesInt());
                 day++;
-                if(day == 365){
+                if (day == 365) {
                     day = 0;
                     int year = Integer.parseInt(properties.getProperty("year")) + 1;
                     properties.setProperty("year", String.valueOf(year));

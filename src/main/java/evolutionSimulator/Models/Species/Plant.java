@@ -46,10 +46,6 @@ public class Plant implements Species{
     @Override
     public void eat(List<Species> speciesList){}
 
-    @Override
-    public int getID() {
-        return ID;
-    }
 
     public String getName() {
         return this.name;
