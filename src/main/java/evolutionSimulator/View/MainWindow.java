@@ -3,20 +3,16 @@ package evolutionSimulator.View;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
 import evolutionSimulator.Models.Species.Species;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -108,6 +104,7 @@ public class MainWindow {
                 int finalJ = j;
                 stackPanes[i][j].setOnMouseClicked(mouseEvent -> {
                     if(properties.getProperty("paused").equals("true")) {
+                        // Create new pop-up windows with cell info
                         final Stage dialog = new Stage();
                         dialog.initModality(Modality.APPLICATION_MODAL);
                         dialog.initOwner(stage);
@@ -118,6 +115,7 @@ public class MainWindow {
                         column2.setCellValueFactory(new PropertyValueFactory<>("vitality"));
                         TableColumn<Species, String> column3 = new TableColumn<>("Speed");
                         column3.setCellValueFactory(new PropertyValueFactory<>("speed"));
+
                         table.getColumns().add(column1);
                         table.getColumns().add(column2);
                         table.getColumns().add(column3);
@@ -126,7 +124,7 @@ public class MainWindow {
                         }
 
                         dialog.setTitle(String.format("Cell info col:%d  row:%d", finalI+1, finalJ+1));
-                        Scene dialogScene = new Scene(table, 300, 200);
+                        Scene dialogScene = new Scene(table, 200, 200);
                         dialog.setScene(dialogScene);
                         dialog.show();
                     }

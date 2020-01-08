@@ -2,7 +2,6 @@ package evolutionSimulator.Models.Species;
 
 import evolutionSimulator.Models.SingleCell;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

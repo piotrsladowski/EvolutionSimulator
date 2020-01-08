@@ -52,11 +52,11 @@ public class Main extends Application {
         properties.setProperty("day", "1");
         properties.setProperty("refreshTime", "800");
 
-        //TODO add to config file
         properties.setProperty("paused", configFile.getGeneralProperties().get("paused"));
         properties.setProperty("spawnPlants", configFile.getGeneralProperties().get("spawnPlants"));
         properties.setProperty("procreationEnabled", configFile.getGeneralProperties().get("procreationEnabled"));
         properties.setProperty("eatingEnabled", configFile.getGeneralProperties().get("eatingEnabled"));
         properties.setProperty("motionEnabled", configFile.getGeneralProperties().get("motionEnabled"));
+        properties.setProperty("removeAllPlants", "false");
     }
 }

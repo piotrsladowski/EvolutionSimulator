@@ -37,6 +37,7 @@ public class MyMap {
         for (String[] animal: readAnimals) {
             size = freeCells.size();
             String name = animal[2];
+            int speed = Integer.parseInt(animal[4]);
             int ID = Integer.parseInt(animal[0]);
             for (int i = 0; i < Integer.parseInt(animal[1]); i++) {
                 int index = rand.nextInt(size-i);
@@ -45,19 +46,19 @@ public class MyMap {
                 String foodType = animal[3];
                 int vitality = Integer.parseInt(animal[5]);
                 if ("meat_eater".equals(foodType)) {
-                    MeatEater m = new MeatEater(ID, name, ID, vitality,true,false);
+                    MeatEater m = new MeatEater(ID, name, speed, vitality,true,false);
                     SingleCell sc = new SingleCell();
                     sc.addSpeciesStartup(m);
                     map[cords[0]][cords[1]] = sc;
                 }
                 else if ("herbivore".equals(foodType)) {
-                    Herbivore h = new Herbivore(ID, name, ID, vitality,true,false);
+                    Herbivore h = new Herbivore(ID, name, speed, vitality,true,false);
                     SingleCell sc = new SingleCell();
                     sc.addSpeciesStartup(h);
                     map[cords[0]][cords[1]] = sc;
                 }
                 else if ("omnivore".equals(foodType)) {
-                    Omnivore o = new Omnivore(ID, name, ID, vitality,true,false);
+                    Omnivore o = new Omnivore(ID, name, speed, vitality,true,false);
                     SingleCell sc = new SingleCell();
                     sc.addSpeciesStartup(o);
                     map[cords[0]][cords[1]] = sc;
@@ -77,7 +78,6 @@ public class MyMap {
                 freeCells.remove(index);
                 SingleCell sc = new SingleCell();
                 Plant p = new Plant(ID, name,HP);
-                //TODO set values
                 sc.addSpeciesStartup(p);
                 map[cords[0]][cords[1]] = sc;
             }

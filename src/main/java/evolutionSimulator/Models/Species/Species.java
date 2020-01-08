@@ -15,7 +15,7 @@ public interface Species {
     String getName();
     boolean isPregnant();
     void setPregnant(boolean pregnant);
-    int getSpeed();
+    int getSpeed(); //this method is used in tableView
     int getVitality();
     void setVitality(int vitality);
     int updateVitality(SingleCell[][] map, int x, int y);

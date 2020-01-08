@@ -18,7 +18,7 @@ motionEnabled = true
 [AnimalsDeclaration]
 <Lion>
     name = lion
-    speed = 20
+    speed = 7
     food_type = meat_eater
     percentageOfTotal = 10
     vitality = 100
@@ -26,7 +26,7 @@ motionEnabled = true
 
 <Cow>
     name = cow
-    speed = 20
+    speed = 5
     food_type = herbivore
     percentageOfTotal = 40
     vitality = 100
@@ -34,7 +34,7 @@ motionEnabled = true
 
 <Pig>
     name = pig
-    speed = 40
+    speed = 8
     food_type = omnivore
     percentageOfTotal = 25
     vitality = 100
@@ -42,7 +42,7 @@ motionEnabled = true
 
 <Bear>
     name = bear
-    speed = 20
+    speed = 6
     food_type = omnivore
     optional = nic
     percentageOfTotal = 25

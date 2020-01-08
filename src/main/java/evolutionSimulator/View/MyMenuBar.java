@@ -82,11 +82,11 @@ public class MyMenuBar {
                 MyLogger.newLogSevere("Failed to create new About Window.");
             }
         });
-        MenuItem githubPage = new MenuItem("Github website");
+        MenuItem githubPage = new MenuItem("Project website");
         githubPage.setOnAction(event -> {
             URI u = null;
             try {
-                u = new URI("https://github.com");
+                u = new URI("https://github.com/piotrsladowski/EvolutionSimulator");
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }

@@ -13,7 +13,7 @@
          <Font size="18.0"/>
       </font>
    </Label>
-   <Label text="v0.1"/>
+   <Label text="v1.0"/>
    <Label text="Authors: Piotr Śladowski, Marcin Świstak "/>
    <HBox prefHeight="100.0" prefWidth="200.0">
       <VBox.margin>

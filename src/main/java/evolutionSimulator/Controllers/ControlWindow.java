@@ -1,8 +1,6 @@
 package evolutionSimulator.Controllers;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -75,6 +73,9 @@ public class ControlWindow extends Thread{
     private Button refreshTime_button;
 
     @FXML
+    private Button removeAllPlants_button;
+
+    @FXML
     private TextField refreshTime_textField;
 
     //endregion
@@ -93,17 +94,14 @@ public class ControlWindow extends Thread{
             motionEnabled = Boolean.parseBoolean(properties.getProperty("motionEnabled"));
             refreshTime_textField.setText(properties.getProperty("refreshTime"));
 
-            refreshTime_textField.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                    //allow only 9 digits to prevent int overflow
-                    if(Pattern.matches("^[0-9]{0,9}+$", newValue)) {
-                        refreshTime_button.setDisable(false);
-                    } else {
-                        refreshTime_button.setDisable(true);
-                    }
-
+            refreshTime_textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                //allow only 9 digits to prevent int overflow
+                if(Pattern.matches("^[0-9]{0,9}+$", newValue)) {
+                    refreshTime_button.setDisable(false);
+                } else {
+                    refreshTime_button.setDisable(true);
                 }
+
             });
 
             task.valueProperty().addListener((dayNum, oldValue, newValue) -> {
@@ -250,7 +248,10 @@ public class ControlWindow extends Thread{
     }
 
     public void removePlantsButtonHandle() {
-
+        properties.setProperty("removeAllPlants", "true");
+        synchronized (pauseLock){
+            pauseLock.notify();
+        }
     }
 
 

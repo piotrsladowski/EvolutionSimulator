@@ -82,12 +82,13 @@ public class ConfigFile {
             if (line.charAt(0) == '<') {
                 if (line.charAt(1) != '/') {
                     String animalClassName = line.substring(1, line.length() - 1);
-                    endSingleAnimalDeclaration = usefulLines.indexOf("</" + animalClassName + ">");//TODO catch if end tag hasn't been found
-                    List<String> sublist = usefulLines.subList(i + 1, endSingleAnimalDeclaration);
-                    Map<String, String> singleSpecies = readSingleSpecies(sublist);
-                    if(checkAnimalMandatoryProperties(animalClassName, singleSpecies)){
-                        animalsList.put(animalClassName, singleSpecies);
-                        //System.out.println(animalClassName + " added animal");
+                    endSingleAnimalDeclaration = usefulLines.indexOf("</" + animalClassName + ">");
+                    if(endSingleAnimalDeclaration != -1) {
+                        List<String> sublist = usefulLines.subList(i + 1, endSingleAnimalDeclaration);
+                        Map<String, String> singleSpecies = readSingleSpecies(sublist);
+                        if (checkAnimalMandatoryProperties(animalClassName, singleSpecies)) {
+                            animalsList.put(animalClassName, singleSpecies);
+                        }
                     }
                 }
             }
@@ -105,12 +106,13 @@ public class ConfigFile {
             if (line.charAt(0) == '<') {
                 if (line.charAt(1) != '/') {
                     String plantClassName = line.substring(1, line.length() - 1);
-                    endSinglePlantDeclaration = usefulLines.indexOf("</" + plantClassName + ">");//TODO catch if end tag hasn't been found
-                    List<String> sublist = usefulLines.subList(i + 1, endSinglePlantDeclaration);
-                    Map<String, String> singleSpecies = readSingleSpecies(sublist);// parse all properties of single species
-                    if(checkPlantMandatoryProperties(plantClassName, singleSpecies)){// don't add if not all mandatory properties were specified
-                        plantsList.put(plantClassName, singleSpecies);
-                        //System.out.println(plantClassName + " added");
+                    endSinglePlantDeclaration = usefulLines.indexOf("</" + plantClassName + ">");
+                    if(endSinglePlantDeclaration != -1) {
+                        List<String> sublist = usefulLines.subList(i + 1, endSinglePlantDeclaration);
+                        Map<String, String> singleSpecies = readSingleSpecies(sublist);// parse all properties of single species
+                        if (checkPlantMandatoryProperties(plantClassName, singleSpecies)) {// don't add if not all mandatory properties were specified
+                            plantsList.put(plantClassName, singleSpecies);
+                        }
                     }
                 }
             }
@@ -187,7 +189,6 @@ public class ConfigFile {
             } catch (NumberFormatException e) {
                 continue;
                 //percentage will be 0
-                //e.printStackTrace();
             }
 
             if (percentage > 100) {
@@ -229,7 +230,6 @@ public class ConfigFile {
             } catch (NumberFormatException e) {
                 continue;
                 //percentage will be 0
-                //e.printStackTrace();
             }
 
             if (percentage > 100) {

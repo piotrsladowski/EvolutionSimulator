@@ -17,8 +17,7 @@ public class MapUpdater extends Thread{
     private final Properties properties;
     private final Object pauseLock;
     private final Random random = new Random();
-    private int refreshTime;
-    private List<String[]> readPlants;
+    private final List<String[]> readPlants;
 
     public MapUpdater(SingleCell[][] map, GUIUpdater guiUpdater, Properties properties, Object pauseLock,List<String[]> readPlants) {
         this.map = map;
@@ -31,13 +30,6 @@ public class MapUpdater extends Thread{
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
-        /**
-         * //TODO
-         * Thats easiest, but the downside is that you wont get a graceful shutdown
-         * (ie the threads will stop, you wont get a chance to perform resource
-         * management etc, which may or may not be a problem for you).
-         * https://stackoverflow.com/questions/14897194/stop-threads-before-close-my-javafx-program
-         **/
     }
 
     final Task task = new Task<Void>() {
@@ -58,6 +50,7 @@ public class MapUpdater extends Thread{
             }
             MyLogger.newLogInfo("Map size: " + gridSize);
             MyLogger.newLogInfo("Not empty cells: " + numOfNotEmptyCells);
+            //noinspection InfiniteLoopStatement
             while (true) {
                 if(properties.getProperty("paused").equals("true")) {
                     try {
@@ -65,8 +58,13 @@ public class MapUpdater extends Thread{
                             pauseLock.wait();
                         }
                     } catch (InterruptedException ex) {
-
+                        MyLogger.newLogSevere("Interrupted thread synchronization");
                     }
+                }
+                if(properties.getProperty("removeAllPlants").equals("true")){
+                    removeAllPlants();
+                    properties.setProperty("removeAllPlants", "false");
+                    continue;
                 }
                 if(properties.getProperty("spawnPlants").equals("true")) {
                     setPlant();
@@ -92,7 +90,7 @@ public class MapUpdater extends Thread{
                 }
                 properties.setProperty("day", String.valueOf(day));
                 guiUpdater.update(map);
-                refreshTime = Integer.parseInt(properties.getProperty("refreshTime"));
+                int refreshTime = Integer.parseInt(properties.getProperty("refreshTime"));
                 try {
                     Thread.sleep(refreshTime);
                 } catch (InterruptedException e) {
@@ -117,7 +115,6 @@ public class MapUpdater extends Thread{
                 }
             }
             map[x][y].addSpeciesStartup(new Plant(1, plant.get(type), HP));
-            System.out.println("");
         }
     }
     public void eatDay(){
@@ -185,14 +182,14 @@ public class MapUpdater extends Thread{
         }
     }
 
-    private void removeAllPlant(){
+    private void removeAllPlants(){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
                 List<Species> speciesList = map[i][j].getAllSpecies();
                 for (Species species : speciesList){
                    if  (species.getClass().getName().equals("evolutionSimulator.Models.Species.Plant")){
                        species.setVitality(0);
-                   };
+                   }
                 }
             }
         }
