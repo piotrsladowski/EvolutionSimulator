@@ -107,7 +107,7 @@ public class MapUpdater extends Thread{
         plant.add("grass");
         plant.add("potato");
         int HP = 0;
-        for (int i =0; i<10; i++) {
+        for (int i =0; i< gridSize*gridSize*0.05 ; i++) {
             int type = random.nextInt(2);
             int x = random.nextInt(gridSize);
             int y = random.nextInt(gridSize);

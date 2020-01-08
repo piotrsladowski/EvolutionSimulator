@@ -1,34 +1,43 @@
 [General]
 gridSize = 40
 percentageOfPlants = 5
-percentageOfAnimals = 30
-ver=1.0
-ver2=2.0
+percentageOfAnimals = 70
+
+# Control switches. You can change them after in the control window
+paused = true
+spawnPlants = false
+procreationEnabled = true
+eatingEnabled = true
+motionEnabled = true
 [endGeneral]
 
+# Add new animals
+# Mandatory parameters: name, speed, food_type
+# You have to add new png icon 40x40px in resource directory in format "<name>40.png"
+# You can specify the percentage share in all animals. New animals will be added until it reaches 100%.
 [AnimalsDeclaration]
 <Lion>
     name = lion
     speed = 20
     food_type = meat_eater
-    percentageOfTotal = 23
-    vitality = 500
+    percentageOfTotal = 10
+    vitality = 100
 </Lion>
 
 <Cow>
     name = cow
     speed = 20
     food_type = herbivore
-    percentageOfTotal = 23
-    vitality = 900
+    percentageOfTotal = 40
+    vitality = 100
 </Cow>
 
 <Pig>
     name = pig
     speed = 40
     food_type = omnivore
-    percentageOfTotal = 23
-    vitality = 500
+    percentageOfTotal = 25
+    vitality = 100
 </Pig>
 
 <Bear>
@@ -36,16 +45,20 @@ ver2=2.0
     speed = 20
     food_type = omnivore
     optional = nic
-    percentageOfTotal = 13
-    vitality = 500
+    percentageOfTotal = 25
+    vitality = 100
 </Bear>
-
 [endAnimalsDeclaration]
 
+
+# Add new Plants
+# Mandatory parameters: name, health_points
+# You have to add new png icon 40x40px in resource directory in format "<name>40.png"
+# You can specify the percentage share in all animals. New animals will be added until it reaches 100%.
 [PlantsDeclaration]
 <Grass>
     name = grass
-    health_points = 30
+    health_points = 100
     consume_time = 2
     eatable = true
     percentageOfTotal = 60
@@ -53,7 +66,7 @@ ver2=2.0
 
 <Potato>
     name = potato
-    health_points = 30
+    health_points = 100
     consume_time = 2
     eatable = true
     percentageOfTotal = 20

@@ -3,13 +3,21 @@ package evolutionSimulator.View;
 import evolutionSimulator.Models.SingleCell;
 import evolutionSimulator.Controllers.ZoomableScrollPane;
 import evolutionSimulator.Models.Species.Species;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.*;
@@ -74,24 +82,55 @@ public class MainWindow {
 
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
+                CellGUI cellGUI = new CellGUI();
+                cellGUI.addAllSpecies(map[i][j].getAllSpecies());
                 if(map[i][j].hasAnySpecies()){
                     Species species = map[i][j].getSpecies();
-                    CellGUI cellGUI = new CellGUI();
                     cellGUI.setWidth(25);
                     cellGUI.setHeight(25);
                     cellGUI.setFill(iconsList.get(species.getName()));
                     cellGUI.setOpacity(species.getVitality() * 0.01);
-                    cellGUIArray[i][j] = cellGUI;
-                    stackPanes[i][j].getChildren().add(cellGUI);
                 }
                 else {
-                    CellGUI cellGUI = new CellGUI();
                     cellGUI.setWidth(25);
                     cellGUI.setHeight(25);
                     cellGUI.setFill(Color.GREEN);
-                    cellGUIArray[i][j] = cellGUI;
-                    stackPanes[i][j].getChildren().add(cellGUI);
                 }
+                cellGUIArray[i][j] = cellGUI;
+                stackPanes[i][j].getChildren().add(cellGUI);
+            }
+        }
+
+        // add e
+        for (int i = 0; i < gridSize; i++) {
+            for (int j = 0; j < gridSize; j++) {
+                int finalI = i;
+                int finalJ = j;
+                stackPanes[i][j].setOnMouseClicked(mouseEvent -> {
+                    if(properties.getProperty("paused").equals("true")) {
+                        final Stage dialog = new Stage();
+                        dialog.initModality(Modality.APPLICATION_MODAL);
+                        dialog.initOwner(stage);
+                        TableView<Species> table = new TableView<>();
+                        TableColumn<Species, String> column1 = new TableColumn<>("Name");
+                        column1.setCellValueFactory(new PropertyValueFactory<>("name"));
+                        TableColumn<Species, String> column2 = new TableColumn<>("Vitality");
+                        column2.setCellValueFactory(new PropertyValueFactory<>("vitality"));
+                        TableColumn<Species, String> column3 = new TableColumn<>("Speed");
+                        column2.setCellValueFactory(new PropertyValueFactory<>("speed"));
+                        table.getColumns().add(column1);
+                        table.getColumns().add(column2);
+                        table.getColumns().add(column3);
+                        for (Species species: MainWindow.cellGUIArray[finalI][finalJ].getSpeciesList()) {
+                            table.getItems().add(species);
+                        }
+
+                        dialog.setTitle(String.format("Cell info col:%d  row:%d", finalI+1, finalJ+1));
+                        Scene dialogScene = new Scene(table, 300, 200);
+                        dialog.setScene(dialogScene);
+                        dialog.show();
+                    }
+                });
             }
         }
 

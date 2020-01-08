@@ -21,6 +21,7 @@ public class GUIUpdater {
     public void update(SingleCell[][] map){
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
+                MainWindow.cellGUIArray[i][j].addAllSpecies(map[i][j].getAllSpecies());
                 if(map[i][j].hasAnySpecies()) {
                     Species item = map[i][j].getSpecies();
                     MainWindow.cellGUIArray[i][j].setFill(iconsList.get(item.getName()));
