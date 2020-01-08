@@ -35,6 +35,7 @@ public class ConfigFile {
     public void load() throws IOException {
         List<String> usefulLines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            // Create list of useful lines (no nulls, empty or comment lines
             String line = br.readLine();
             while (line != null) {
                 if (line.length() == 0) {
@@ -71,7 +72,6 @@ public class ConfigFile {
             generalProperties.put(parts[0], parts[1]);
         }
         //endregion
-        //TODO add only animals, not plants
         //region AnimalsProperties
         int animalsStartIndex = usefulLines.indexOf("[AnimalsDeclaration]") + 1;
         int animalsEndIndex = usefulLines.indexOf("[endAnimalsDeclaration]");
